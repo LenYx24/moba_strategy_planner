@@ -34,7 +34,7 @@ public class App {
 
         Image mapimage = null;
         try {
-            mapimage = ImageIO.read(new File("src/main/resources/map.jpg"));
+            mapimage = ImageIO.read(ClassLoader.getSystemResource("map.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
             return;
