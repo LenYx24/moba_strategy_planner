@@ -5,7 +5,6 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -14,14 +13,15 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 
 public class App {
-    private static Point getWindowPosCentered(Dimension windowSize){
+    private double mapImageScaler = 0.9;
+    private Point getWindowPosCentered(Dimension windowSize){
         Point result = new Point();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         result.x = (screenSize.width - windowSize.width) /2;
         result.y = (screenSize.height - windowSize.height) /2;
         return result;
     }
-    private static void createAndShowGUI() {
+    private void createAndShowGUI() {
         //Create and set up the window.
         JFrame frame = new JFrame("Lol Marker");
         Color c = new Color(100,100,100);
@@ -39,7 +39,11 @@ public class App {
             e.printStackTrace();
             return;
         }
-        mapimage = mapimage.getScaledInstance(400, 400, Image.SCALE_SMOOTH);
+        // I need to shrink the mapimages width to keep the ratio of the image
+        double ratio = (double)windowSize.height / windowSize.width;
+        int finalWidth = (int)(windowSize.width*ratio*mapImageScaler);
+        System.out.println(finalWidth);
+        mapimage = mapimage.getScaledInstance(finalWidth, (int)(windowSize.height*mapImageScaler), Image.SCALE_SMOOTH);
         ImageIcon mapicon = new ImageIcon(mapimage);
         JLabel map = new JLabel(mapicon);
         frame.add(map);
@@ -49,9 +53,10 @@ public class App {
         frame.setVisible(true);
     }
     public static void main(String[] args) {
+        App app = new App();
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                createAndShowGUI();
+                app.createAndShowGUI();
             }
         });
     }
