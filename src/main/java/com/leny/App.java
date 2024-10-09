@@ -4,11 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
@@ -31,17 +28,8 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(getWindowPosCentered(windowSize));
         
-
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("src/main/resources/map.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //Add the ubiquitous "Hello World" label.
-        JLabel label = new JLabel("Hello World");
-        frame.getContentPane().add(label);
+        JLabel map = new JLabel(new ImageIcon("src/main/resources/map.jpg"));
+        frame.add(map);
 
         //Display the window.
         frame.pack();
