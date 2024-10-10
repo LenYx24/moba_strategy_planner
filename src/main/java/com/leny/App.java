@@ -8,6 +8,8 @@ import java.awt.Image;
 import java.awt.Point;
 import java.awt.Rectangle;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.awt.image.BufferedImage;
@@ -19,6 +21,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 
 public class App {
     private class FrameClickListener implements MouseWheelListener{
@@ -45,6 +48,13 @@ public class App {
             }
         }
     }
+    private class MenuActionClickListener implements ActionListener{
+
+        public void actionPerformed(ActionEvent e) {
+            System.out.println("menu clicked");
+        }
+
+    }
     private Image getResizedImage(Image img){
         double ratio = (double)windowSize.height / windowSize.width;
         int finalWidth = (int)(windowSize.width*ratio*zoomLevel);
@@ -66,14 +76,14 @@ public class App {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setLocation(getWindowPosCentered(windowSize));
 
-        JMenuBar greenMenuBar = new JMenuBar();
-        greenMenuBar.setOpaque(true);
-        greenMenuBar.setBackground(new Color(154, 165, 127));
-        greenMenuBar.setPreferredSize(new Dimension(200, 20));
+        JMenuBar menuBar = new JMenuBar();
+        JMenuItem item1 = new JMenuItem("New");
+        item1.addActionListener(new MenuActionClickListener());
+        menuBar.add(item1);
+        menuBar.setBackground(new Color(47, 28, 156));
 
         //Set the menu bar and add the label to the content pane.
-        frame.setJMenuBar(greenMenuBar);
-        //frame.add(yellowLabel, BorderLayout.CENTER);
+        frame.setJMenuBar(menuBar);
 
         try {
             mapImage = ImageIO.read(ClassLoader.getSystemResource("map.jpg"));
