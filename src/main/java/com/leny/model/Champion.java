@@ -1,4 +1,4 @@
-package com.leny;
+package com.leny.model;
 
 import com.sun.javafx.geom.Vec2d;
 
@@ -9,7 +9,6 @@ public class Champion {
         gold = g;
         pos = new Vec2d(10,10);
     }
-
     private Vec2d pos;
     public Vec2d getPos(){return pos;}
     public void setPos(Vec2d v){pos = v;}
