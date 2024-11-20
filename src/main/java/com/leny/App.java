@@ -133,11 +133,6 @@ public class App {
    
     public static void main(String[] args) {
         App app = new App();
-        
-        javax.swing.SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                app.createAndShowGUI();
-            }
-        });
+        app.createAndShowGUI();
     }
 }
