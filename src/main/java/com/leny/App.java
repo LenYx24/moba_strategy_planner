@@ -14,6 +14,8 @@ import java.awt.event.MouseMotionListener;
 import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
+import java.util.LinkedList;
+import java.util.Queue;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -25,6 +27,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import com.leny.controller.MapController;
+import com.leny.controller.MenuPhaseController;
+import com.leny.controller.PhaseController;
 import com.leny.model.Map;
 import com.leny.view.MapView;
 
@@ -132,7 +136,19 @@ public class App {
     }
    
     public static void main(String[] args) {
-        App app = new App();
-        app.createAndShowGUI();
+        Queue<PhaseController> phases = new LinkedList<>();
+        MenuPhaseController menuPhase = new MenuPhaseController(phases);
+        phases.add(menuPhase);
+        while(!phases.isEmpty()){
+            PhaseController phaseController = phases.poll();
+            phaseController.setupPhase();
+            while(!phaseController.isDone()){
+                // wait
+                //System.out.println("wait");
+            }
+            System.out.println("Phase done: moving to the next one");
+        }
+        //App app = new App();
+        //app.createAndShowGUI();
     }
 }
