@@ -15,7 +15,7 @@ import java.awt.event.MouseWheelEvent;
 import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
@@ -29,24 +29,35 @@ import javax.swing.SwingUtilities;
 import com.leny.controller.MapController;
 import com.leny.controller.MenuPhaseController;
 import com.leny.controller.PhaseController;
+import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Map;
 import com.leny.view.MapView;
 
 public class App {
-    
-    public static Image getResizedImage(Image img, double zoomLevel){
-        double ratio = (double)windowSize.height / windowSize.width;
-        int finalWidth = (int)(windowSize.width*ratio*zoomLevel);
-        int finalHeight = (int)(windowSize.height*zoomLevel);
+
+    public static Image getResizedImage(Image img, double zoomLevel) {
+        double ratio = (double) windowSize.height / windowSize.width;
+        int finalWidth = (int) (windowSize.width * ratio * zoomLevel);
+        int finalHeight = (int) (windowSize.height * zoomLevel);
         return img.getScaledInstance(finalWidth, finalHeight, Image.SCALE_FAST);
     }
-    private class MenuActionClickListener implements ActionListener{
+
+    public static class windowSize {
+
+        public windowSize() {
+        }
+    }
+
+    private class MenuActionClickListener implements ActionListener {
+
         @Override
         public void actionPerformed(ActionEvent e) {
             System.out.println("menu clicked");
         }
     }
-    private class ChampMoveMouseListener implements MouseMotionListener{
+
+    private class ChampMoveMouseListener implements MouseMotionListener {
+
         @Override
         public void mouseDragged(MouseEvent e) {
             Point p = e.getLocationOnScreen();
@@ -61,17 +72,19 @@ public class App {
         }
     }
 
-    public class FrameClickListener implements MouseWheelListener{
+    public class FrameClickListener implements MouseWheelListener {
+
         public MapController mc;
-        public FrameClickListener(MapController mc){
+
+        public FrameClickListener(MapController mc) {
             this.mc = mc;
         }
+
         public void mouseWheelMoved(MouseWheelEvent e) {
             mc.frameClicked(e);
         }
     }
-        
-    public static final Dimension windowSize = new Dimension(1600,800);
+
     JFrame frame = new JFrame("Lol Marker");
     JPanel panel = new JPanel();
     MapController mapController;
@@ -80,7 +93,7 @@ public class App {
     JLabel champLabel;
 
     private void createAndShowGUI() {
-        frame.setBackground(new Color(255,255,0));
+        frame.setBackground(new Color(255, 255, 0));
         frame.setPreferredSize(windowSize);
         frame.setLayout(new GridBagLayout());
 
@@ -88,7 +101,7 @@ public class App {
         frame.setLocation(getWindowPosCentered(windowSize));
 
         panel.setLayout(null);
-        panel.setBackground(new Color(255,0,0));
+        panel.setBackground(new Color(255, 0, 0));
 
         JMenuBar menuBar = new JMenuBar();
         JMenuItem item1 = new JMenuItem("New");
@@ -112,8 +125,8 @@ public class App {
 
         champImage = champImage.getScaledInstance(48, 48, Image.SCALE_SMOOTH);
         champLabel = new JLabel(new ImageIcon(champImage));
-        champLabel.setBounds(new Rectangle(0,0,48,48));
-        champLabel.setPreferredSize(new Dimension(48,48));
+        champLabel.setBounds(new Rectangle(0, 0, 48, 48));
+        champLabel.setPreferredSize(new Dimension(48, 48));
         champLabel.addMouseMotionListener(new ChampMoveMouseListener());
 
         panel.add(champLabel);
@@ -127,28 +140,40 @@ public class App {
         frame.setVisible(true);
     }
 
-    private Point getWindowPosCentered(Dimension windowSize){
+    private Point getWindowPosCentered(Dimension windowSize) {
         Point result = new Point();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
-        result.x = (screenSize.width - windowSize.width) /2;
-        result.y = (screenSize.height - windowSize.height) /2;
+        result.x = (screenSize.width - windowSize.width) / 2;
+        result.y = (screenSize.height - windowSize.height) / 2;
         return result;
     }
-   
+
     public static void main(String[] args) {
-        Queue<PhaseController> phases = new LinkedList<>();
-        MenuPhaseController menuPhase = new MenuPhaseController(phases);
+        JFrame mainFrame = new JFrame("LoL Macro Marker");
+        mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        Object done = new Object();
+
+        List<PhaseController> phases = new LinkedList<>();
+
+        MenuPhaseController menuPhase = new MenuPhaseController(phases, done, mainFrame);
         phases.add(menuPhase);
-        while(!phases.isEmpty()){
-            PhaseController phaseController = phases.poll();
-            phaseController.setupPhase();
-            while(!phaseController.isDone()){
-                // wait
-                //System.out.println("wait");
+
+        PhaseController currentPhaseController = menuPhase;
+
+        while (!phases.isEmpty()) {
+            currentPhaseController.setupPhase();
+            currentPhaseController = phases.get(phases.indexOf(currentPhaseController) + 1);
+
+            synchronized (done) {
+                try {
+                    done.wait();
+                } catch (InterruptedException e) {
+                    System.out.println("interrupted");
+                }
             }
             System.out.println("Phase done: moving to the next one");
         }
-        //App app = new App();
-        //app.createAndShowGUI();
+        mainFrame.dispose();
     }
 }

@@ -5,22 +5,26 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import com.leny.App;
+import static com.leny.model.AppSettings.windowSize;
 
-public class MapView{
+public class MapView {
+
     JLabel mapLabel;
-    public MapView(Image img){
+
+    public MapView(Image img) {
         mapLabel = new JLabel(new ImageIcon(img));
-        double ratio = (double)App.windowSize.height / App.windowSize.width;
-        int finalWidth = (int)(App.windowSize.width * ratio);
-        int finalHeight = App.windowSize.height;
+        double ratio = (double) windowSize.height / windowSize.width;
+        int finalWidth = (int) (windowSize.width * ratio);
+        int finalHeight = windowSize.height;
         mapLabel.setBounds(400, 0, finalWidth, finalHeight);
     }
-    public void updateImage(ImageIcon icon){
+
+    public void updateImage(ImageIcon icon) {
         mapLabel.setIcon(icon);
         mapLabel.updateUI();
     }
-    public JLabel get(){
+
+    public JLabel get() {
         return mapLabel;
     }
 }

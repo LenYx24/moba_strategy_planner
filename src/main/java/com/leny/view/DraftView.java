@@ -1,3 +1,7 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.leny.view;
 
 import java.awt.Color;
@@ -14,15 +18,15 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import com.leny.controller.MenuPhaseController;
+import com.leny.controller.DraftPhaseController;
 import static com.leny.model.AppSettings.windowSize;
 
-public class MenuView {
+public class DraftView {
 
-    MenuPhaseController phaseController;
+    DraftPhaseController phaseController;
     JFrame mainFrame;
 
-    public MenuView(MenuPhaseController phaseController, JFrame mainFrame) {
+    public DraftView(DraftPhaseController phaseController, JFrame mainFrame) {
         this.phaseController = phaseController;
         this.mainFrame = mainFrame;
     }
@@ -39,13 +43,13 @@ public class MenuView {
 
             panel.setLayout(boxLayout);
 
-            JLabel title = new JLabel("LoL Macro Marker");
+            JLabel title = new JLabel("Draft");
             String fontFamily = "Helvetica";
             title.setFont(new Font(fontFamily, Font.TRUETYPE_FONT, 60));
 
             JButton startBtn = new JButton("Start");
             JButton settingsBtn = new JButton("Settings");
-            JButton exitBtn = new JButton("Exit");
+            JButton exitBtn = new JButton("Back");
 
             startBtn.setBackground(new Color(240, 0, 0));
             Dimension btnSize = new Dimension(400, 150);
@@ -56,11 +60,9 @@ public class MenuView {
 
             startBtn.addActionListener((ActionEvent event) -> {
                 System.out.println("pushing state");
-                phaseController.pushDraftPhase();
                 phaseController.complete();
             });
             settingsBtn.addActionListener((ActionEvent event) -> {
-                phaseController.pushDraftPhase();
                 phaseController.complete();
             });
             exitBtn.addActionListener((ActionEvent event) -> {

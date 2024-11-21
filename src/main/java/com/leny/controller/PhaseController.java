@@ -1,6 +1,23 @@
 package com.leny.controller;
 
-public interface PhaseController {
-    public boolean isDone();
-    public void setupPhase();
+import java.util.List;
+
+public abstract class PhaseController {
+
+    protected final Object done;
+    protected List<PhaseController> phases;
+
+    protected PhaseController(List<PhaseController> phases, Object done) {
+        this.done = done;
+        this.phases = phases;
+    }
+
+    public void complete() {
+        synchronized (done) {
+            done.notifyAll();
+        }
+    }
+
+    public void setupPhase() {
+    }
 }
