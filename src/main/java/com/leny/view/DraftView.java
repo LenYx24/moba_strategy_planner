@@ -61,6 +61,7 @@ public class DraftView {
 
             startBtn.addActionListener((ActionEvent event) -> {
                 System.out.println("pushing state");
+                phaseController.pushGamePhase();
                 phaseController.complete();
             });
             settingsBtn.addActionListener((ActionEvent event) -> {
