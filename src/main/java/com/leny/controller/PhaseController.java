@@ -18,6 +18,10 @@ public abstract class PhaseController {
         }
     }
 
+    public void back() {
+        phases.remove(phases.lastIndexOf(this));
+    }
+
     public void setupPhase() {
     }
 }

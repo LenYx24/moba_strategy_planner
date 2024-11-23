@@ -33,6 +33,7 @@ public class DraftView {
 
     public void show() {
         SwingUtilities.invokeLater(() -> {
+            System.out.println("SHOWING DRAFTPHASE");
             JPanel panel = new JPanel();
 
             mainFrame.setBackground(new Color(200, 200, 200));
@@ -66,6 +67,7 @@ public class DraftView {
                 phaseController.complete();
             });
             exitBtn.addActionListener((ActionEvent event) -> {
+                phaseController.back();
                 phaseController.complete();
             });
 

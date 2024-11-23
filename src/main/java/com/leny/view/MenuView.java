@@ -64,6 +64,7 @@ public class MenuView {
                 phaseController.complete();
             });
             exitBtn.addActionListener((ActionEvent event) -> {
+                phaseController.back();
                 phaseController.complete();
             });
 

@@ -162,8 +162,8 @@ public class App {
         PhaseController currentPhaseController = menuPhase;
 
         while (!phases.isEmpty()) {
+            currentPhaseController = phases.get(phases.size() - 1);
             currentPhaseController.setupPhase();
-            currentPhaseController = phases.get(phases.indexOf(currentPhaseController) + 1);
 
             synchronized (done) {
                 try {
