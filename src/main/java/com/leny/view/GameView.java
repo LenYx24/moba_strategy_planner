@@ -16,7 +16,6 @@ import java.awt.event.MouseWheelListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -27,7 +26,7 @@ import javax.swing.SwingUtilities;
 import com.leny.controller.GamePhaseController;
 import com.leny.controller.MapController;
 import static com.leny.model.AppSettings.windowSize;
-import com.leny.model.Map;
+import com.leny.model.MiniMap;
 
 public class GameView {
 
@@ -36,13 +35,13 @@ public class GameView {
     Image champImage;
     JLabel champLabel;
     JPanel panel;
-    Map map;
+    MiniMap map;
 
     public GameView(GamePhaseController phaseController, JFrame mainFrame) {
         this.phaseController = phaseController;
         this.mainFrame = mainFrame;
         this.champImage = null;
-        this.map = new Map();
+        this.map = new MiniMap();
         this.champLabel = null;
     }
 
@@ -95,23 +94,16 @@ public class GameView {
             panel.setBackground(new Color(240, 240, 240));
             panel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-            BoxLayout boxLayout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-
-            panel.setLayout(boxLayout);
-
-            JLabel title = new JLabel("Draft");
+            panel.setLayout(null);
             String fontFamily = "Helvetica";
-            title.setFont(new Font(fontFamily, Font.TRUETYPE_FONT, 60));
             JButton backBtn = new JButton("Back");
-            Dimension btnSize = new Dimension(200, 30);
-            backBtn.setMaximumSize(btnSize);
+            backBtn.setMaximumSize(new Dimension(200, 30));
             backBtn.addActionListener((ActionEvent event) -> {
                 phaseController.back();
                 phaseController.complete();
             });
             backBtn.setFont(new Font(fontFamily, Font.TRUETYPE_FONT, 60));
-            backBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-            title.setAlignmentX(Component.CENTER_ALIGNMENT);
+            backBtn.setLocation(new Point(0, 0));
 
             //Set the menu bar and add the label to the content pane.
             try {
@@ -133,18 +125,12 @@ public class GameView {
             champLabel.addMouseMotionListener(new ChampMoveMouseListener());
 
             panel.add(champLabel);
-            panel.add(mapView.get());
-            panel.setOpaque(false);
-            panel.setVisible(true);
-
-            panel.add(title);
-            panel.add(javax.swing.Box.createVerticalStrut(40));
             panel.add(backBtn);
+            panel.add(mapView.get());
 
             mainFrame.setContentPane(panel);
             mainFrame.setVisible(true);
             mainFrame.pack();
-            mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         });
     }
 }

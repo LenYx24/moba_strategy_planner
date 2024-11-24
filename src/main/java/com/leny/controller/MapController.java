@@ -4,16 +4,16 @@ import java.awt.event.MouseWheelEvent;
 
 import javax.swing.ImageIcon;
 
-import com.leny.model.Map;
+import com.leny.model.MiniMap;
 import com.leny.view.GameView;
 import com.leny.view.MapView;
 
 public class MapController {
 
     MapView mapView;
-    Map map;
+    MiniMap map;
 
-    public MapController(Map map, MapView mapView) {
+    public MapController(MiniMap map, MapView mapView) {
         this.map = map;
         this.mapView = mapView;
     }

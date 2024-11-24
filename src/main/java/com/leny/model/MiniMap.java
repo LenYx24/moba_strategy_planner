@@ -7,7 +7,7 @@ import javax.imageio.ImageIO;
 
 import com.leny.view.GameView;
 
-public class Map {
+public class MiniMap {
 
     Image mapImage = null;
     Image unchangedMapImage = null;
