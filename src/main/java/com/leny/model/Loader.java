@@ -60,6 +60,16 @@ public class Loader {
         return img;
     }
 
+    public static Image getMapIconImg(String name) {
+        Image img = null;
+        try {
+            img = ImageIO.read(ClassLoader.getSystemResource("mapIcons/" + name + ".png"));
+        } catch (IOException ex) {
+            System.out.println("ERROR: Icon missing");
+        }
+        return img;
+    }
+
     public static List<ChampImageBox> getAllChampsIcons(List<Champion> champs) {
         List<ChampImageBox> list = new ArrayList<>();
         Image unknownIcon = getUnknownIcon();

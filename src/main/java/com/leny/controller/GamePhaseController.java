@@ -11,10 +11,10 @@ public class GamePhaseController extends PhaseController {
 
     GameView view;
     List<Champion> champs;
-    boolean drawState;
+    GameState state;
     JFrame mainFrame;
 
-    enum GameStates {
+    public enum GameState {
         DRAW,
         PLACE_MINION,
         PLACE_WARD
@@ -25,6 +25,7 @@ public class GamePhaseController extends PhaseController {
         view = new GameView(this, mainFrame, champs);
         this.champs = champs;
         this.mainFrame = mainFrame;
+        this.state = GameState.DRAW;
     }
 
     @Override
@@ -32,8 +33,12 @@ public class GamePhaseController extends PhaseController {
         view.show();
     }
 
-    public void setDrawState(boolean b) {
-        drawState = b;
+    public void setState(GameState s) {
+        state = s;
+    }
+
+    public GameState getState() {
+        return state;
     }
 
     @Override

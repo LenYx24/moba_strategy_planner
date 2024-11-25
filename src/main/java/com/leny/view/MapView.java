@@ -36,8 +36,17 @@ public class MapView extends JLayeredPane {
     }
 
     public void setup(List<Entity> entities) {
+        int w = mapLabel.getWidth();
+        int h = mapLabel.getHeight();
         for (Entity e : entities) {
-            EntityImageBox b = new EntityImageBox(e);
+            Point p = e.getLocation(w, h);
+            p.x += this.getLocation().x;
+            p.y += this.getLocation().y;
+            int r = 30;
+            e.resizeImg(r);
+            EntityImageBox b = new EntityImageBox(e, p);
+            b.setBounds(p.x, p.y, r, r);
+            b.setLocation(p);
             this.add(b, JLayeredPane.PALETTE_LAYER);
         }
         this.revalidate();

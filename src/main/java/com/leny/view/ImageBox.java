@@ -17,4 +17,8 @@ public class ImageBox extends JLabel {
     public void resize(int r) {
         img = img.getScaledInstance(r, r, Image.SCALE_SMOOTH);
     }
+
+    public void resize(int a, int b) {
+        img = img.getScaledInstance(a, b, Image.SCALE_SMOOTH);
+    }
 }

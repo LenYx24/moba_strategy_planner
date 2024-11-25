@@ -1,17 +1,11 @@
 package com.leny.model;
 
 import java.awt.Image;
-import java.awt.Point;
 import java.util.List;
-
-import javax.swing.JPanel;
-
-import com.leny.model.Champion.Team;
 
 public class MiniMap {
 
     Image mapImage = null;
-    double zoomLevel = 1;
     List<Entity> entities;
 
     public MiniMap() {
@@ -32,18 +26,5 @@ public class MiniMap {
 
     public List<Entity> getEntities() {
         return entities;
-    }
-
-    public Point getChampLocation(Champion champ, JPanel observer) {
-        Point p = new Point(0, 0);
-        int width = mapImage.getWidth(observer);
-        int height = mapImage.getHeight(observer);
-        int margin = 40;
-        if (champ.getTeam() == Team.Blue) {
-            p = new Point(0 + margin, height - margin);
-        } else {
-            p = new Point(width - margin, 0 + margin);
-        }
-        return p;
     }
 }

@@ -305,7 +305,6 @@ public class DraftView {
                 DEBUGSELECT(allChampIcons.get(0));
                 DEBUGLOCKIN();
             }
-
             mainFrame.setContentPane(mainPanel);
             mainFrame.setVisible(true);
             mainFrame.setPreferredSize(windowSize);

@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 import com.leny.controller.GamePhaseController;
+import com.leny.controller.GamePhaseController.GameState;
 import static com.leny.model.AppSettings.windowSize;
 import static com.leny.view.Colors.BG_COLOR_DARK;
 
@@ -21,12 +22,22 @@ public class GameSideBar extends JPanel {
         SidebarButton drawState = new SidebarButton("draw");
         SidebarButton addMinionBtn = new SidebarButton("minion");
         SidebarButton addWardBtn = new SidebarButton("ward");
+        SidebarButton deleteBtn = new SidebarButton("delete");
         SidebarButton backBtn = new SidebarButton("Back");
-
+        SidebarButton selected = null;
         backBtn.setBackground(new Color(240, 0, 0));
 
         drawState.addActionListener((ActionEvent event) -> {
-            phaseController.setDrawState(true);
+            phaseController.setState(GameState.DRAW);
+        });
+        addMinionBtn.addActionListener((ActionEvent event) -> {
+            phaseController.setState(GameState.PLACE_MINION);
+        });
+        addWardBtn.addActionListener((ActionEvent event) -> {
+            phaseController.setState(GameState.PLACE_WARD);
+        });
+        deleteBtn.addActionListener((ActionEvent event) -> {
+            phaseController.setState(GameState.PLACE_WARD);
         });
         backBtn.addActionListener((ActionEvent event) -> {
             phaseController.back();

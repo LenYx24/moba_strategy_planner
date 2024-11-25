@@ -1,15 +1,16 @@
 package com.leny.view;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagLayout;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.awt.event.MouseMotionListener;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
@@ -24,6 +25,8 @@ import com.leny.controller.MapController;
 import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Champion;
 import com.leny.model.Champion.Team;
+import com.leny.model.Entity;
+import com.leny.model.EntityFactory;
 import com.leny.model.Loader;
 import com.leny.model.MiniMap;
 import static com.leny.view.Colors.BG_COLOR;
@@ -38,6 +41,9 @@ public class GameView {
     List<ChampImageBox> champIcons;
     GameDataBar gameDataBar;
     MapView mapView;
+    MapController mapController;
+    List<Point> currentLine = null;
+    List<List<Point>> lines;
 
     public GameView(GamePhaseController phaseController, JFrame mainFrame, List<Champion> champs) {
         this.phaseController = phaseController;
@@ -46,6 +52,7 @@ public class GameView {
         this.champs = champs;
         champIcons = Loader.getAllChampsIcons(champs);
         this.gameDataBar = new GameDataBar(phaseController);
+        lines = new LinkedList<>();
     }
 
     private class ChampDataDisplayer extends MouseAdapter {
@@ -56,7 +63,7 @@ public class GameView {
         }
     }
 
-    private class ChampMoveMouseListener implements MouseMotionListener {
+    private class ChampMoveMouseListener extends MouseMotionAdapter {
 
         @Override
         public void mouseDragged(MouseEvent e) {
@@ -66,10 +73,21 @@ public class GameView {
             p.x -= box.getWidth() / 2;
             p.y -= box.getHeight() / 2;
             box.setLocation(p);
+            redrawLines();
         }
+    }
 
-        public void mouseMoved(MouseEvent e) {
-            // empty
+    private class EntityMoveListener extends MouseMotionAdapter {
+
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            EntityImageBox box = (EntityImageBox) e.getSource();
+            Point p = e.getLocationOnScreen();
+            SwingUtilities.convertPointFromScreen(p, mapView);
+            p.x -= box.getWidth() / 2;
+            p.y -= box.getHeight() / 2;
+            box.setLocation(p);
+            redrawLines();
         }
     }
 
@@ -78,8 +96,72 @@ public class GameView {
         public void mouseDragged(MouseEvent e) {
             Point p = e.getLocationOnScreen();
             SwingUtilities.convertPointFromScreen(p, mapView);
-            Graphics g = mapView.getGraphics();
-            g.drawOval((int) p.getX(), (int) p.getY(), 1, 1);
+            Graphics2D g = (Graphics2D) mapView.getGraphics();
+            if (currentLine != null && !currentLine.isEmpty()) {
+                Point pLast = currentLine.get(currentLine.size() - 1);
+                g.setStroke(new BasicStroke(5));
+                g.drawLine((int) p.getX(), (int) p.getY(), pLast.x, pLast.y);
+            }
+            if (currentLine != null) {
+                currentLine.add(p);
+            }
+        }
+    }
+
+    private void redrawLines() {
+        Graphics2D g = (Graphics2D) mapView.getGraphics();
+        g.setStroke(new BasicStroke(5));
+        for (List<Point> line : lines) {
+            for (int i = 1; i < line.size(); i++) {
+                Point prev = line.get(i - 1);
+                Point current = line.get(i);
+                g.drawLine(current.x, current.y, prev.x, prev.y);
+            }
+        }
+    }
+
+    private class DrawInputListener extends MouseAdapter {
+
+        public void mouseEntered(MouseEvent e) {
+            currentLine = new LinkedList<>();
+        }
+
+        public void mouseExited(MouseEvent e) {
+            if (currentLine != null) {
+                lines.add(currentLine);
+            }
+        }
+    }
+
+    private class PlaceEntityListener extends MouseAdapter {
+
+        public void mousePressed(MouseEvent e) {
+            Point p = e.getLocationOnScreen();
+            SwingUtilities.convertPointFromScreen(p, mapView);
+            EntityImageBox box;
+            switch (phaseController.getState()) {
+                case PLACE_MINION: {
+                    Entity minion = EntityFactory.createMinion(p);
+                    minion.resizeImg(50);
+                    box = new EntityImageBox(minion, p);
+                    box.setBorder(BorderFactory.createLineBorder(new Color(44, 234, 63)));
+                    box.setBounds(p.x, p.y, 50, 40);
+                    break;
+                }
+                case PLACE_WARD: {
+                    Entity ward = EntityFactory.createWard(p);
+                    ward.resizeImg(40);
+                    box = new EntityImageBox(ward, p);
+                    box.setBorder(BorderFactory.createLineBorder(new Color(206, 234, 44)));
+                    box.setBounds(p.x, p.y, 40, 40);
+                    break;
+                }
+                default: {
+                    return;
+                }
+            }
+            box.addMouseMotionListener(new EntityMoveListener());
+            mapView.add(box, JLayeredPane.DRAG_LAYER);
         }
     }
 
@@ -97,7 +179,7 @@ public class GameView {
 
             map.setImage(Loader.getMapImage());
             mapView = new MapView(map.getMapImage());
-            MapController mapController = new MapController(map, mapView);
+            mapController = new MapController(map, mapView);
             mapController.setup();
             Queue<Point> positions = mapView.getChampPoints();
             for (ChampImageBox champIcon : champIcons) {
@@ -114,6 +196,8 @@ public class GameView {
                 mapView.add(champIcon, JLayeredPane.DRAG_LAYER);
             }
             mapView.addMouseMotionListener(new DrawListener());
+            mapView.addMouseListener(new DrawInputListener());
+            mapView.addMouseListener(new PlaceEntityListener());
             mainPanel.add(mapWrapper, BorderLayout.CENTER);
             mapWrapper.add(mapView);
 
