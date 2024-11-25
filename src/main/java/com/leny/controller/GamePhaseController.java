@@ -20,8 +20,8 @@ public class GamePhaseController extends PhaseController {
         PLACE_WARD
     }
 
-    public GamePhaseController(List<PhaseController> phases, Object done, JFrame mainFrame, List<Champion> champs) {
-        super(phases, done);
+    public GamePhaseController(List<PhaseController> phases, JFrame mainFrame, List<Champion> champs) {
+        super(phases);
         view = new GameView(this, mainFrame, champs);
         this.champs = champs;
         this.mainFrame = mainFrame;
@@ -39,6 +39,6 @@ public class GamePhaseController extends PhaseController {
     @Override
     public void back() {
         phases.clear();
-        phases.add(new MenuPhaseController(phases, done, mainFrame));
+        phases.add(new MenuPhaseController(phases, mainFrame));
     }
 }

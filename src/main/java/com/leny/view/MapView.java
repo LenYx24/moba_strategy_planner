@@ -1,5 +1,6 @@
 package com.leny.view;
 
+import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
 import java.util.LinkedList;
@@ -20,13 +21,15 @@ public class MapView extends JLayeredPane {
 
     public MapView(Image img) {
         mapLabel = new JLabel(new ImageIcon(img));
-        double ratio = (double) windowSize.height / windowSize.width;
+        double padding = 0.1 * windowSize.getHeight();
+        double height = windowSize.getHeight() - padding;
+        double ratio = height / windowSize.width;
         int finalWidth = (int) (windowSize.width * ratio);
-        int finalHeight = windowSize.height;
+        int finalHeight = (int) height;
         this.setVisible(true);
         this.setLayout(null);
         mapLabel.setBounds(0, 0, finalWidth, finalHeight);
-        mapLabel.setAlignmentX(CENTER_ALIGNMENT);
+        this.setPreferredSize(new Dimension(finalWidth, finalHeight));
         this.setBackground(BG_COLOR);
         this.add(mapLabel, JLayeredPane.DEFAULT_LAYER);
     }

@@ -1,6 +1,5 @@
 package com.leny.controller;
 
-import java.awt.Image;
 import java.util.List;
 
 import javax.swing.JFrame;
@@ -18,8 +17,8 @@ public class DraftPhaseController extends PhaseController {
     Draft draft;
     JFrame mainFrame;
 
-    public DraftPhaseController(List<PhaseController> phases, Object done, JFrame mainFrame) {
-        super(phases, done);
+    public DraftPhaseController(List<PhaseController> phases, JFrame mainFrame) {
+        super(phases);
         view = new DraftView(this, mainFrame);
         this.mainFrame = mainFrame;
         this.draft = new Draft(this);
@@ -31,7 +30,7 @@ public class DraftPhaseController extends PhaseController {
     }
 
     public void pushGamePhase() {
-        phases.add(new GamePhaseController(phases, done, mainFrame, draft.getFinalChampList()));
+        phases.add(new GamePhaseController(phases, mainFrame, draft.getFinalChampList()));
     }
 
     public List<Champion> getAllChamps() {

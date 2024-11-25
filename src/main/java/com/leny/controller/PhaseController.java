@@ -4,11 +4,9 @@ import java.util.List;
 
 public abstract class PhaseController {
 
-    protected final Object done;
-    protected List<PhaseController> phases;
+    protected final List<PhaseController> phases;
 
-    protected PhaseController(List<PhaseController> phases, Object done) {
-        this.done = done;
+    protected PhaseController(List<PhaseController> phases) {
         this.phases = phases;
     }
 

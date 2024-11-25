@@ -4,8 +4,8 @@ import java.util.List;
 
 public class SettingsPhaseController extends PhaseController {
 
-    public SettingsPhaseController(List<PhaseController> phases, Object done) {
-        super(phases, done);
+    public SettingsPhaseController(List<PhaseController> phases) {
+        super(phases);
     }
 
     @Override

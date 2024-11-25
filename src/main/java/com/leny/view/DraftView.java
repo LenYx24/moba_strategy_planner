@@ -301,8 +301,8 @@ public class DraftView {
             draftPanel.add(down, BorderLayout.PAGE_END);
 
             // DEBUG
-            for (int i = 0; i < 19; i++) {
-                DEBUGSELECT(allChampIcons.get(i));
+            for (int i = 0; i < 20; i++) {
+                DEBUGSELECT(allChampIcons.get(0));
                 DEBUGLOCKIN();
             }
 

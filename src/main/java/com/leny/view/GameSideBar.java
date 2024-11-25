@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import com.leny.controller.GamePhaseController;
 import static com.leny.model.AppSettings.windowSize;
+import static com.leny.view.Colors.BG_COLOR_DARK;
 
 public class GameSideBar extends JPanel {
 
@@ -16,7 +17,7 @@ public class GameSideBar extends JPanel {
         setPreferredSize(size);
         setMaximumSize(size);
         setMinimumSize(size);
-        setBackground(new Color(46, 50, 58));
+        setBackground(BG_COLOR_DARK);
         SidebarButton drawState = new SidebarButton("draw");
         SidebarButton addMinionBtn = new SidebarButton("minion");
         SidebarButton addWardBtn = new SidebarButton("ward");

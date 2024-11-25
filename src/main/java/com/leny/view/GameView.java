@@ -2,7 +2,9 @@ package com.leny.view;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -27,6 +29,8 @@ import com.leny.model.Champion;
 import com.leny.model.Champion.Team;
 import com.leny.model.Loader;
 import com.leny.model.MiniMap;
+import static com.leny.view.Colors.BG_COLOR;
+import static com.leny.view.Colors.BG_COLOR_DARK;
 
 public class GameView {
 
@@ -112,7 +116,9 @@ public class GameView {
             mainPanel.add(new GameSideBar(phaseController), BorderLayout.LINE_START);
 
             // MIDDLE
-            JPanel mapHolder = new JPanel();
+            JPanel mapWrapper = new JPanel(new GridBagLayout());
+            mapWrapper.setBackground(BG_COLOR);
+
             map.setImage(Loader.getMapImage());
             map.setup();
             mapView = new MapView(map.getMapImage());
@@ -134,11 +140,15 @@ public class GameView {
                 mapView.add(champIcon, JLayeredPane.DRAG_LAYER);
             }
             mapView.addMouseMotionListener(new DrawListener());
-            mainPanel.add(mapHolder, BorderLayout.CENTER);
-            mapHolder.add(mapView);
+            mainPanel.add(mapWrapper, BorderLayout.CENTER);
+            mapWrapper.add(mapView);
 
             // RIGHT
-            mainPanel.add(gameDataBar, BorderLayout.LINE_END);
+            JPanel rightPanelWrapper = new JPanel();
+            rightPanelWrapper.add(gameDataBar);
+            rightPanelWrapper.setBackground(BG_COLOR_DARK);
+            rightPanelWrapper.setPreferredSize(new Dimension(400, windowSize.height));
+            mainPanel.add(rightPanelWrapper, BorderLayout.LINE_END);
 
             mainFrame.setContentPane(mainPanel);
             mainFrame.setVisible(true);

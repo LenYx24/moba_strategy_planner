@@ -1,7 +1,6 @@
 package com.leny.controller;
 
 import java.util.List;
-import java.util.Queue;
 
 import javax.swing.JFrame;
 
@@ -12,14 +11,14 @@ public class MenuPhaseController extends PhaseController {
     MenuView view;
     JFrame mainFrame;
 
-    public MenuPhaseController(List<PhaseController> phases, Object done, JFrame mainFrame) {
-        super(phases, done);
+    public MenuPhaseController(List<PhaseController> phases, JFrame mainFrame) {
+        super(phases);
         view = new MenuView(this, mainFrame);
         this.mainFrame = mainFrame;
     }
 
     public void pushDraftPhase() {
-        phases.add(new DraftPhaseController(phases, done, mainFrame));
+        phases.add(new DraftPhaseController(phases, mainFrame));
     }
 
     @Override

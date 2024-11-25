@@ -26,11 +26,9 @@ public class App {
         mainFrame.setPreferredSize(windowSize);
         mainFrame.setLocation(AppSettings.getWindowPosCentered(windowSize));
 
-        Object done = new Object();
-
         List<PhaseController> phases = new LinkedList<>();
 
-        MenuPhaseController menuPhase = new MenuPhaseController(phases, done, mainFrame);
+        MenuPhaseController menuPhase = new MenuPhaseController(phases, mainFrame);
         phases.add(menuPhase);
 
         PhaseController currentPhaseController;
