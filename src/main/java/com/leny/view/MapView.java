@@ -1,13 +1,20 @@
 package com.leny.view;
 
 import java.awt.Image;
+import java.awt.Point;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 
 import static com.leny.model.AppSettings.windowSize;
+import com.leny.model.Entity;
+import static com.leny.view.Colors.BG_COLOR;
 
-public class MapView {
+public class MapView extends JLayeredPane {
 
     JLabel mapLabel;
 
@@ -16,15 +23,47 @@ public class MapView {
         double ratio = (double) windowSize.height / windowSize.width;
         int finalWidth = (int) (windowSize.width * ratio);
         int finalHeight = windowSize.height;
-        mapLabel.setBounds(400, 0, finalWidth, finalHeight);
+        this.setVisible(true);
+        this.setLayout(null);
+        mapLabel.setBounds(0, 0, finalWidth, finalHeight);
+        mapLabel.setAlignmentX(CENTER_ALIGNMENT);
+        this.setBackground(BG_COLOR);
+        this.add(mapLabel, JLayeredPane.DEFAULT_LAYER);
+    }
+
+    public void setup(List<Entity> entities) {
+        for (Entity e : entities) {
+            EntityImageBox b = new EntityImageBox(e);
+            this.add(b, JLayeredPane.PALETTE_LAYER);
+        }
+        this.revalidate();
+        this.updateUI();
+    }
+
+    public Queue<Point> getChampPoints() {
+        Queue<Point> positions = new LinkedList<>();
+        int w = mapLabel.getWidth();
+        int h = mapLabel.getHeight();
+        int padding = 70;
+        // team blue
+        positions.add(new Point(padding, 2 * padding));
+        positions.add(new Point(w / 4, h / 3 + padding));
+        positions.add(new Point(w / 2 - padding, w / 2));
+        int botpad = 30;
+        positions.add(new Point(w - 2 * padding - botpad, h - 2 * padding + botpad));
+        positions.add(new Point(w - 3 * padding - botpad, h - 3 * padding + botpad));
+        // team red
+        positions.add(new Point(2 * padding, padding));
+        positions.add(new Point(w - w / 4, h - h / 2));
+        positions.add(new Point(w / 2 + padding, w / 2 - padding));
+        positions.add(new Point(w - 2 * padding, h - 3 * padding));
+        positions.add(new Point(w - padding, h - 2 * padding));
+        return positions;
     }
 
     public void updateImage(ImageIcon icon) {
+        System.out.println("UPDATE IMAGE");
         mapLabel.setIcon(icon);
         mapLabel.updateUI();
-    }
-
-    public JLabel get() {
-        return mapLabel;
     }
 }

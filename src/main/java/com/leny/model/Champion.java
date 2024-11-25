@@ -2,6 +2,20 @@ package com.leny.model;
 
 public class Champion {
 
+    public enum Team {
+        Blue,
+        Red
+    }
+
+    public enum Role {
+        Top,
+        Jg,
+        Mid,
+        Adc,
+        Supp
+    }
+    Team team;
+
     public Champion() {
     }
 
@@ -38,5 +52,13 @@ public class Champion {
 
     public void setGold(int g) {
         gold = g;
+    }
+
+    public void setTeam(Team team) {
+        this.team = team;
+    }
+
+    public Team getTeam() {
+        return team;
     }
 }

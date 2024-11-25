@@ -13,8 +13,8 @@ public abstract class PhaseController {
     }
 
     public void complete() {
-        synchronized (done) {
-            done.notifyAll();
+        synchronized (phases) {
+            phases.notifyAll();
         }
     }
 

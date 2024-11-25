@@ -18,6 +18,10 @@ public class MapController {
         this.mapView = mapView;
     }
 
+    public void setup() {
+        mapView.setup(map.getEntities());
+    }
+
     public void frameClicked(MouseWheelEvent e) {
         if (e.isControlDown()) {
             double testZoomLevel = map.getZoomLevel() + -1 * e.getUnitsToScroll() / 20.0;

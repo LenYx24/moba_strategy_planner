@@ -31,7 +31,7 @@ public class DraftPhaseController extends PhaseController {
     }
 
     public void pushGamePhase() {
-        phases.add(new GamePhaseController(phases, done, mainFrame));
+        phases.add(new GamePhaseController(phases, done, mainFrame, draft.getFinalChampList()));
     }
 
     public List<Champion> getAllChamps() {
@@ -61,4 +61,12 @@ public class DraftPhaseController extends PhaseController {
     public ChampImageBox findImageBoxByChamp(Champion champ) {
         return draft.findImageBoxByChamp(champ);
     }
+
+    public void checkDone() {
+        if (draft.isDone()) {
+            this.pushGamePhase();
+            this.complete();
+        }
+    }
+
 }

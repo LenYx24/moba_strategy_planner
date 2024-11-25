@@ -39,14 +39,13 @@ public class App {
             currentPhaseController = phases.get(phases.size() - 1);
             currentPhaseController.setupPhase();
 
-            synchronized (done) {
+            synchronized (phases) {
                 try {
-                    done.wait();
+                    phases.wait();
                 } catch (InterruptedException e) {
                     System.out.println("interrupted");
                 }
             }
-            System.out.println("Phase done: moving to the next one");
         }
         mainFrame.dispose();
     }

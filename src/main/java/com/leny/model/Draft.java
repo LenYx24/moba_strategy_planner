@@ -8,7 +8,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import com.leny.controller.DraftPhaseController;
-import com.leny.controller.PhaseController;
+import com.leny.model.Champion.Team;
 import com.leny.view.ChampImageBox;
 
 public class Draft {
@@ -54,6 +54,10 @@ public class Draft {
                 return null;
             }
             return champs.get(champs.size() - 1);
+        }
+
+        public List<Champion> getChampsList() {
+            return champs;
         }
     }
 
@@ -128,8 +132,23 @@ public class Draft {
                 return box;
             }
         }
-        System.out.println("NOT FOUND ERR");
-        System.out.println(name);
         return null;
+    }
+
+    public boolean isDone() {
+        return current == 20;
+    }
+
+    public List<Champion> getFinalChampList() {
+        List<Champion> list = new ArrayList<>();
+        for (Champion champ : teamBluePicks.getChampsList()) {
+            list.add(champ);
+            champ.setTeam(Team.Blue);
+        }
+        for (Champion champ : teamRedPicks.getChampsList()) {
+            list.add(champ);
+            champ.setTeam(Team.Red);
+        }
+        return list;
     }
 }

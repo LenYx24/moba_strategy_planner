@@ -4,7 +4,6 @@ A program célja az, hogy segítse mélyebben megérteni a játékban lapuló st
 
 A league of legends egy komplex MOBA (Multiplayer online battle arena), ahol 2 csapat az idézők szurdoka nevű pályán méri össze  tudását egy átlagosan 25-40 perces mérkőzés során, ahol az 5-5 játékos a saját hősét erősítve próbál az ellenfél bázisára bejutni és megsemmisíteni a nexust, amely csapat építménye ha elhull, akkor veszítenek.
 
-
 ## Funkciók:
 A felhasználó tudja a hősök ikonjait mozgatni, és kiválasztva egy hőst megnézheti a tulajdonságait.
 

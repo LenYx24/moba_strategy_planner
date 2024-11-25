@@ -1,6 +1,5 @@
 package com.leny.view;
 
-import java.awt.Dimension;
 import java.awt.Image;
 
 import com.leny.model.Champion;

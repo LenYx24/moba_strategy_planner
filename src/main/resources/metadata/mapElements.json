@@ -1,0 +1,212 @@
+[
+    {
+        "name": "Blue Nexus",
+        "filepath": "bluenexus.png",
+        "xp": 0.05,
+        "yp": 0.95,
+        "gold": 500
+    },
+    {
+        "name": "Red Nexus",
+        "filepath": "rednexus.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 500
+    },
+    {
+        "name": "Blue Top inhib",
+        "filepath": "blueinhib.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 400
+    },
+    {
+        "name": "Blue Mid inhib",
+        "filepath": "blueinhib.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 400
+    },
+    {
+        "name": "Blue Bot inhib",
+        "filepath": "blueinhib.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 400
+    },
+    {
+        "name": "Red Top inhib",
+        "filepath": "redinhib.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 400
+    },
+    {
+        "name": "Red Mid inhib",
+        "filepath": "redinhib.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 400
+    },
+    {
+        "name": "Red Bot inhib",
+        "filepath": "redinhib.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 400
+    },
+    {
+        "name": "Blue Top Turret 1",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Mid Turret 1",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Bot Turret 1",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Top Turret 2",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Mid Turret 2",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Bot Turret 2",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Top Turret 3",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Mid Turret 3",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Bot Turret 3",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Nexus Turret 1",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Nexus Turret 2",
+        "filepath": "blueturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Top Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Mid Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Bot Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Top Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Mid Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Blue Bot Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Top Turret 3",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Mid Turret 3",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Bot Turret 3",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Nexus Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    },
+    {
+        "name": "Red Nexus Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.95,
+        "yp": 0.05,
+        "gold": 200
+    }
+]

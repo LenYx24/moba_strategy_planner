@@ -4,17 +4,16 @@
  */
 package com.leny.view;
 
+import java.awt.BasicStroke;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -23,7 +22,6 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
 import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
@@ -36,22 +34,25 @@ import com.leny.model.Champion;
 import com.leny.model.Draft.ChampsList;
 import com.leny.model.Draft.Group;
 import com.leny.model.Loader;
+import static com.leny.view.Colors.BG_COLOR;
 
 public class DraftView {
 
     DraftPhaseController phaseController;
     JFrame mainFrame;
     ChampImageBox selectedChamp;
-    Color bgColor = new Color(56, 61, 69);
     ChampListPanel champListPanel;
     private ChampsPanel pickPanelBlue;
     private ChampsPanel pickPanelRed;
     private ChampsPanel banPanelBlue;
     private ChampsPanel banPanelRed;
+    JPanel draftPanel;
+    Border defaultBorder;
 
     public DraftView(DraftPhaseController phaseController, JFrame mainFrame) {
         this.phaseController = phaseController;
         this.mainFrame = mainFrame;
+        defaultBorder = BorderFactory.createStrokeBorder(new BasicStroke());
     }
 
     public void updateChampsPanel(Group group) {
@@ -87,7 +88,7 @@ public class DraftView {
             this.champsList = champsList;
             this.unknownIcon = unknownIcon;
             champBoxes = new ImageBox[5];
-            this.setBackground(bgColor);
+            this.setBackground(BG_COLOR);
             this.axis = axis;
             for (int i = 0; i < champBoxes.length; i++) {
                 ImageBox imgBox = new ImageBox(unknownIcon);
@@ -163,6 +164,7 @@ public class DraftView {
 
         private void addBoxes() {
             for (ChampImageBox box : allChampsIcons) {
+                box.setBorder(defaultBorder);
                 inside.add(box);
             }
         }
@@ -183,7 +185,7 @@ public class DraftView {
         public void mousePressed(MouseEvent e) {
             ChampImageBox champImageBox = (ChampImageBox) e.getSource();
             if (selectedChamp != null) {
-                selectedChamp.setBorder(null);
+                selectedChamp.setBorder(defaultBorder);
             }
 
             selectedChamp = champImageBox;
@@ -200,26 +202,44 @@ public class DraftView {
             }
             phaseController.next(selectedChamp);
             champListPanel.remove(selectedChamp);
-            mainFrame.revalidate();
+            phaseController.checkDone();
+            draftPanel.updateUI();
         }
+    }
+
+    public void DEBUGSELECT(ChampImageBox champImageBox) {
+        if (selectedChamp != null) {
+            selectedChamp.setBorder(defaultBorder);
+        }
+
+        selectedChamp = champImageBox;
+        selectedChamp.setBorder(BorderFactory.createLineBorder(new Color(181, 162, 121)));
+    }
+
+    public void DEBUGLOCKIN() {
+        if (selectedChamp == null || !champListPanel.contains(selectedChamp)) {
+            return;
+        }
+        phaseController.next(selectedChamp);
+        champListPanel.remove(selectedChamp);
+        mainFrame.revalidate();
+        phaseController.checkDone();
     }
 
     public void show() {
         SwingUtilities.invokeLater(() -> {
-            mainFrame.setBackground(new Color(200, 200, 200));
-
             JPanel mainPanel = new JPanel(new BorderLayout());
             mainPanel.setBackground(new Color(240, 240, 240));
 
             mainPanel.add(new DraftSideBar(phaseController), BorderLayout.LINE_START);
 
-            JPanel draftPanel = new JPanel(new BorderLayout());
-            draftPanel.setBackground(bgColor);
+            draftPanel = new JPanel(new BorderLayout());
+            draftPanel.setBackground(BG_COLOR);
             mainPanel.add(draftPanel, BorderLayout.CENTER);
 
             // TOP
             JPanel top = new JPanel(new BorderLayout());
-            top.setBackground(bgColor);
+            top.setBackground(BG_COLOR);
 
             JLabel blue = new JLabel("Blue");
 
@@ -269,16 +289,22 @@ public class DraftView {
 
             // DOWN
             JPanel down = new JPanel();
-            down.setBackground(bgColor);
+            down.setBackground(BG_COLOR);
             banPanelBlue = new ChampsPanel(unknownIcon, BoxLayout.X_AXIS, phaseController.getChampsGroups(Group.BLUEBAN));
             down.add(banPanelBlue);
             JButton lockBtn = new JButton("LOCK IN");
-            lockBtn.setPreferredSize(new Dimension(300, 50));
+            lockBtn.setPreferredSize(new Dimension(250, 50));
             lockBtn.addMouseListener(new LockInListener());
             down.add(lockBtn);
             banPanelRed = new ChampsPanel(unknownIcon, BoxLayout.X_AXIS, phaseController.getChampsGroups(Group.REDBAN));
             down.add(banPanelRed);
             draftPanel.add(down, BorderLayout.PAGE_END);
+
+            // DEBUG
+            for (int i = 0; i < 19; i++) {
+                DEBUGSELECT(allChampIcons.get(i));
+                DEBUGLOCKIN();
+            }
 
             mainFrame.setContentPane(mainPanel);
             mainFrame.setVisible(true);
