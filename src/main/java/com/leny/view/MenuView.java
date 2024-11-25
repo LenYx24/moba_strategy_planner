@@ -2,13 +2,13 @@ package com.leny.view;
 
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
+import java.io.File;
 
-import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -16,6 +16,7 @@ import javax.swing.SwingUtilities;
 
 import com.leny.controller.MenuPhaseController;
 import static com.leny.model.AppSettings.windowSize;
+import com.leny.model.ButtonFactory;
 
 public class MenuView {
 
@@ -44,35 +45,40 @@ public class MenuView {
             String fontFamily = "Helvetica";
             title.setFont(new Font(fontFamily, Font.TRUETYPE_FONT, 60));
 
-            JButton startBtn = new JButton("Start");
-            JButton exitBtn = new JButton("Exit");
+            JButton startBtn = ButtonFactory.createMainMenuButton("Start");
+            JButton loadBtn = ButtonFactory.createMainMenuButton("Load State");
+            JButton exitBtn = ButtonFactory.createMainMenuButton("Exit");
 
             startBtn.setBackground(new Color(240, 0, 0));
-            Dimension btnSize = new Dimension(400, 150);
-
-            startBtn.setMaximumSize(btnSize);
-            exitBtn.setMaximumSize(btnSize);
 
             startBtn.addActionListener((ActionEvent event) -> {
                 phaseController.pushDraftPhase();
                 phaseController.complete();
+            });
+            loadBtn.addActionListener((ActionEvent event) -> {
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setCurrentDirectory(new File("."));
+                fileChooser.setDialogType(JFileChooser.FILES_ONLY);
+
+                int result = fileChooser.showSaveDialog(null);
+                if (result == fileChooser.APPROVE_OPTION) {
+                    String path = fileChooser.getSelectedFile().getPath();
+                    phaseController.pushGameState(path);
+                }
             });
             exitBtn.addActionListener((ActionEvent event) -> {
                 phaseController.back();
                 phaseController.complete();
             });
 
-            startBtn.setFont(new Font(fontFamily, Font.TRUETYPE_FONT, 60));
-            exitBtn.setFont(new Font(fontFamily, Font.TRUETYPE_FONT, 60));
-
-            startBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
-            exitBtn.setAlignmentX(Component.CENTER_ALIGNMENT);
             title.setAlignmentX(Component.CENTER_ALIGNMENT);
 
             panel.add(javax.swing.Box.createVerticalStrut(50));
             panel.add(title);
             panel.add(javax.swing.Box.createVerticalStrut(40));
             panel.add(startBtn);
+            panel.add(javax.swing.Box.createVerticalStrut(40));
+            panel.add(loadBtn);
             panel.add(javax.swing.Box.createVerticalStrut(40));
             panel.add(exitBtn);
 

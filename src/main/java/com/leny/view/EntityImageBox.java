@@ -8,8 +8,12 @@ public class EntityImageBox extends ImageBox {
 
     Entity entity;
 
-    public EntityImageBox(Entity entity, Point pos) {
+    public EntityImageBox(Entity entity) {
         super(entity.getImg());
         this.entity = entity;
+    }
+
+    public Entity getEntity() {
+        return entity;
     }
 }

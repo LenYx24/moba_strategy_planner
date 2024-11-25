@@ -1,9 +1,14 @@
 package com.leny.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
+import java.io.File;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javax.swing.JFileChooser;
 import javax.swing.JPanel;
 
 import com.leny.controller.GamePhaseController;
@@ -19,33 +24,37 @@ public class GameSideBar extends JPanel {
         setMaximumSize(size);
         setMinimumSize(size);
         setBackground(BG_COLOR_DARK);
-        SidebarButton drawState = new SidebarButton("draw");
-        SidebarButton addMinionBtn = new SidebarButton("minion");
-        SidebarButton addWardBtn = new SidebarButton("ward");
-        SidebarButton deleteBtn = new SidebarButton("delete");
-        SidebarButton backBtn = new SidebarButton("Back");
-        SidebarButton selected = null;
-        backBtn.setBackground(new Color(240, 0, 0));
-
-        drawState.addActionListener((ActionEvent event) -> {
+        Map<String, SidebarButton> buttons = new HashMap<>();
+        buttons.put("draw", new SidebarButton("draw", (ActionEvent event) -> {
             phaseController.setState(GameState.DRAW);
-        });
-        addMinionBtn.addActionListener((ActionEvent event) -> {
+        }, buttons));
+        buttons.put("minion", new SidebarButton("minion", (ActionEvent event) -> {
             phaseController.setState(GameState.PLACE_MINION);
-        });
-        addWardBtn.addActionListener((ActionEvent event) -> {
+        }, buttons));
+        buttons.put("ward", new SidebarButton("ward", (ActionEvent event) -> {
             phaseController.setState(GameState.PLACE_WARD);
-        });
-        deleteBtn.addActionListener((ActionEvent event) -> {
-            phaseController.setState(GameState.PLACE_WARD);
-        });
-        backBtn.addActionListener((ActionEvent event) -> {
+        }, buttons));
+        buttons.put("delete", new SidebarButton("delete", (ActionEvent event) -> {
+            phaseController.setState(GameState.DELETE);
+        }, buttons));
+        buttons.put("save", new SidebarButton("save", (ActionEvent event) -> {
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setCurrentDirectory(new File("."));
+            fileChooser.setDialogType(JFileChooser.DIRECTORIES_ONLY);
+
+            int result = fileChooser.showSaveDialog(null);
+            if (result == fileChooser.APPROVE_OPTION) {
+                String path = fileChooser.getSelectedFile().getPath();
+                phaseController.saveState(path);
+            }
+        }, buttons));
+        buttons.put("Back", new SidebarButton("Back", (ActionEvent event) -> {
             phaseController.back();
             phaseController.complete();
-        });
-        this.add(drawState);
-        this.add(addMinionBtn);
-        this.add(addWardBtn);
-        this.add(backBtn);
+        }, buttons));
+        List<String> order = Arrays.asList("draw", "minion", "ward", "delete", "save", "back");
+        for (String current : order) {
+            this.add(buttons.get(current));
+        }
     }
 }

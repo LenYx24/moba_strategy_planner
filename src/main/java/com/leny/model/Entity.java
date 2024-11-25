@@ -6,10 +6,14 @@ import java.awt.Point;
 public class Entity {
 
     String name;
-    Image icon;
+    transient Image icon;
     double xp;
     double yp;
+    int goldValue;
     Point pos;
+
+    public Entity() {
+    }
 
     public Entity(String name, Image icon, double xp, double yp) {
         this.icon = icon;
@@ -40,6 +44,10 @@ public class Entity {
 
     public Point getLocation() {
         return pos;
+    }
+
+    public void setPos(Point pos) {
+        this.pos = pos;
     }
 
     public String getName() {

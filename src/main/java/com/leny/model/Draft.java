@@ -143,11 +143,11 @@ public class Draft {
         List<Champion> list = new ArrayList<>();
         for (Champion champ : teamBluePicks.getChampsList()) {
             list.add(champ);
-            champ.setTeam(Team.Blue);
+            champ.setTeam(Team.BLUE);
         }
         for (Champion champ : teamRedPicks.getChampsList()) {
             list.add(champ);
-            champ.setTeam(Team.Red);
+            champ.setTeam(Team.RED);
         }
         return list;
     }

@@ -33,8 +33,7 @@ public class GameDataBar extends JPanel {
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            // TODO Auto-generated method stub
-            throw new UnsupportedOperationException("Unimplemented method 'changedUpdate'");
+            update(e);
         }
 
         @Override
@@ -54,7 +53,7 @@ public class GameDataBar extends JPanel {
             }
             System.out.println("typed");
             try {
-                selectedChamp.setGold(Integer.parseInt(text));
+                selectedChamp.setGoldValue(Integer.parseInt(text));
             } catch (NumberFormatException err) {
                 System.out.println("wrong format");
             }
@@ -77,8 +76,8 @@ public class GameDataBar extends JPanel {
         this.add(LabelFactory.createDataLabel("name: "), gbc);
         this.add(LabelFactory.createDataLabel(champ.getName()), gbc);
 
-        this.add(LabelFactory.createDataLabel("gold: "), gbc);
-        goldArea = new JTextField(Integer.toString(champ.getGold()));
+        this.add(LabelFactory.createDataLabel("Gold value: "), gbc);
+        goldArea = new JTextField(Integer.toString(champ.getGoldValue()));
         goldArea.getDocument().addDocumentListener(new TextChangedAdapter());
         this.add(goldArea, gbc);
         this.revalidate();

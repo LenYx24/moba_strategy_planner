@@ -1,19 +1,22 @@
 package com.leny.model;
 
-public class Champion {
+import java.awt.Point;
+
+public class Champion extends Entity {
 
     public enum Team {
-        Blue,
-        Red
+        BLUE,
+        RED
     }
 
     public enum Role {
-        Top,
-        Jg,
-        Mid,
-        Adc,
-        Supp
+        TOP,
+        JG,
+        MID,
+        ADC,
+        SUPP
     }
+    private int goldEarned;
     Team team;
 
     public Champion() {
@@ -21,37 +24,17 @@ public class Champion {
 
     public Champion(String n) {
         name = n;
-        gold = 0;
-        pos = new Vec2(10, 10);
-    }
-    private Vec2 pos;
-
-    public Vec2 getPos() {
-        return pos;
+        goldValue = 300;
+        goldEarned = 0;
+        setPos(new Point(0, 0));
     }
 
-    public void setPos(Vec2 v) {
-        pos = v;
+    public int getGoldValue() {
+        return goldValue;
     }
 
-    private String name;
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String n) {
-        name = n;
-    }
-
-    private int gold;
-
-    public int getGold() {
-        return gold;
-    }
-
-    public void setGold(int g) {
-        gold = g;
+    public void setGoldValue(int g) {
+        goldValue = g;
     }
 
     public void setTeam(Team team) {

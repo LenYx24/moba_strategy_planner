@@ -5,6 +5,8 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import com.leny.model.Vec2;
+
 public class ImageBox extends JLabel {
 
     Image img;
@@ -20,5 +22,9 @@ public class ImageBox extends JLabel {
 
     public void resize(int a, int b) {
         img = img.getScaledInstance(a, b, Image.SCALE_SMOOTH);
+    }
+
+    public Vec2 getPos() {
+        return new Vec2(getLocation().x, getLocation().y);
     }
 }

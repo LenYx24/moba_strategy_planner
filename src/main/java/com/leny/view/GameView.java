@@ -25,6 +25,7 @@ import com.leny.controller.MapController;
 import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Champion;
 import com.leny.model.Champion.Team;
+import com.leny.model.DataOutput;
 import com.leny.model.Entity;
 import com.leny.model.EntityFactory;
 import com.leny.model.Loader;
@@ -44,19 +45,77 @@ public class GameView {
     MapController mapController;
     List<Point> currentLine = null;
     List<List<Point>> lines;
+    List<Entity> saveableEntities;
 
     public GameView(GamePhaseController phaseController, JFrame mainFrame, List<Champion> champs) {
         this.phaseController = phaseController;
         this.mainFrame = mainFrame;
         this.map = new MiniMap();
         this.champs = champs;
-        champIcons = Loader.getAllChampsIcons(champs);
-        this.gameDataBar = new GameDataBar(phaseController);
         lines = new LinkedList<>();
+        saveableEntities = new LinkedList<>();
+        this.gameDataBar = new GameDataBar(phaseController);
+        champIcons = Loader.getAllChampsIcons(champs);
+        map.setImage(Loader.getMapImage());
+        mapView = new MapView(map.getMapImage());
+        setupChampIcons();
+    }
+
+    public GameView(GamePhaseController phaseController, JFrame mainFrame, DataOutput input) {
+        this.phaseController = phaseController;
+        this.mainFrame = mainFrame;
+        this.map = new MiniMap();
+        this.champs = input.getChamps();
+        lines = input.getLines();
+        saveableEntities = input.getEntities();
+        // todo saveentities
+        this.gameDataBar = new GameDataBar(phaseController);
+        champIcons = Loader.getAllChampsIcons(champs);
+        map.setImage(Loader.getMapImage());
+        mapView = new MapView(map.getMapImage());
+        setupChampIcons();
+    }
+
+    public void setupChampIcons() {
+        Queue<Point> positions = mapView.getChampPoints();
+        for (ChampImageBox champIcon : champIcons) {
+            champIcon.addMouseMotionListener(new ChampMoveMouseListener());
+            champIcon.addMouseListener(new ChampDataDisplayer());
+            champIcon.resize(60);
+            Color color = new Color(255, 0, 0);
+            if (champIcon.getChamp().getTeam() == Team.BLUE) {
+                color = new Color(0, 0, 255);
+            }
+            Point p = positions.poll();
+            champIcon.setBounds(p.x, p.y, 60, 60);
+            champIcon.setBorder(BorderFactory.createLineBorder(color));
+            mapView.add(champIcon, JLayeredPane.DRAG_LAYER);
+        }
+    }
+
+    public List<Champion> getChamps() {
+        return champs;
+    }
+
+    public List<List<Point>> getDrawnLines() {
+        return lines;
+    }
+
+    public List<Entity> getSaveableEntities() {
+        return saveableEntities;
+    }
+
+    public void setLines(List<List<Point>> lines) {
+        this.lines = lines;
+    }
+
+    public void loadEntities(List<Entity> entities) {
+
     }
 
     private class ChampDataDisplayer extends MouseAdapter {
 
+        @Override
         public void mousePressed(MouseEvent e) {
             ChampImageBox box = (ChampImageBox) e.getSource();
             gameDataBar.update(box.getChamp());
@@ -72,6 +131,7 @@ public class GameView {
             SwingUtilities.convertPointFromScreen(p, mapView);
             p.x -= box.getWidth() / 2;
             p.y -= box.getHeight() / 2;
+            box.getChamp().setPos(new Point(p.x, p.y));
             box.setLocation(p);
             redrawLines();
         }
@@ -86,6 +146,7 @@ public class GameView {
             SwingUtilities.convertPointFromScreen(p, mapView);
             p.x -= box.getWidth() / 2;
             p.y -= box.getHeight() / 2;
+            box.getEntity().setPos(new Point(p.x, p.y));
             box.setLocation(p);
             redrawLines();
         }
@@ -93,7 +154,11 @@ public class GameView {
 
     private class DrawListener extends MouseMotionAdapter {
 
+        @Override
         public void mouseDragged(MouseEvent e) {
+            if (phaseController.getState() != GamePhaseController.GameState.DRAW) {
+                return;
+            }
             Point p = e.getLocationOnScreen();
             SwingUtilities.convertPointFromScreen(p, mapView);
             Graphics2D g = (Graphics2D) mapView.getGraphics();
@@ -122,11 +187,19 @@ public class GameView {
 
     private class DrawInputListener extends MouseAdapter {
 
+        @Override
         public void mouseEntered(MouseEvent e) {
+            if (phaseController.getState() != GamePhaseController.GameState.DRAW) {
+                return;
+            }
             currentLine = new LinkedList<>();
         }
 
+        @Override
         public void mouseExited(MouseEvent e) {
+            if (phaseController.getState() != GamePhaseController.GameState.DRAW) {
+                return;
+            }
             if (currentLine != null) {
                 lines.add(currentLine);
             }
@@ -135,23 +208,25 @@ public class GameView {
 
     private class PlaceEntityListener extends MouseAdapter {
 
+        @Override
         public void mousePressed(MouseEvent e) {
             Point p = e.getLocationOnScreen();
             SwingUtilities.convertPointFromScreen(p, mapView);
             EntityImageBox box;
+            Entity entity;
             switch (phaseController.getState()) {
                 case PLACE_MINION: {
-                    Entity minion = EntityFactory.createMinion(p);
-                    minion.resizeImg(50);
-                    box = new EntityImageBox(minion, p);
+                    entity = EntityFactory.createMinion(p);
+                    entity.resizeImg(50);
+                    box = new EntityImageBox(entity);
                     box.setBorder(BorderFactory.createLineBorder(new Color(44, 234, 63)));
                     box.setBounds(p.x, p.y, 50, 40);
                     break;
                 }
                 case PLACE_WARD: {
-                    Entity ward = EntityFactory.createWard(p);
-                    ward.resizeImg(40);
-                    box = new EntityImageBox(ward, p);
+                    entity = EntityFactory.createWard(p);
+                    entity.resizeImg(40);
+                    box = new EntityImageBox(entity);
                     box.setBorder(BorderFactory.createLineBorder(new Color(206, 234, 44)));
                     box.setBounds(p.x, p.y, 40, 40);
                     break;
@@ -160,6 +235,7 @@ public class GameView {
                     return;
                 }
             }
+            saveableEntities.add(entity);
             box.addMouseMotionListener(new EntityMoveListener());
             mapView.add(box, JLayeredPane.DRAG_LAYER);
         }
@@ -176,23 +252,10 @@ public class GameView {
             // MIDDLE
             JPanel mapWrapper = new JPanel(new GridBagLayout());
             mapWrapper.setBackground(BG_COLOR);
-
-            map.setImage(Loader.getMapImage());
-            mapView = new MapView(map.getMapImage());
             mapController = new MapController(map, mapView);
             mapController.setup();
-            Queue<Point> positions = mapView.getChampPoints();
+            this.setupChampIcons();
             for (ChampImageBox champIcon : champIcons) {
-                champIcon.addMouseMotionListener(new ChampMoveMouseListener());
-                champIcon.addMouseListener(new ChampDataDisplayer());
-                champIcon.resize(60);
-                Color color = new Color(255, 0, 0);
-                if (champIcon.getChamp().getTeam() == Team.Blue) {
-                    color = new Color(0, 0, 255);
-                }
-                Point p = positions.poll();
-                champIcon.setBounds(p.x, p.y, 60, 60);
-                champIcon.setBorder(BorderFactory.createLineBorder(color));
                 mapView.add(champIcon, JLayeredPane.DRAG_LAYER);
             }
             mapView.addMouseMotionListener(new DrawListener());
@@ -209,7 +272,6 @@ public class GameView {
             mainPanel.add(rightPanelWrapper, BorderLayout.LINE_END);
 
             mainFrame.setContentPane(mainPanel);
-            mainFrame.setVisible(true);
             mainFrame.pack();
         });
     }

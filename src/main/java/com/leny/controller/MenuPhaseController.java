@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
+import com.leny.model.DataOutput;
 import com.leny.view.MenuView;
 
 public class MenuPhaseController extends PhaseController {
@@ -24,5 +25,9 @@ public class MenuPhaseController extends PhaseController {
     @Override
     public void setupPhase() {
         view.show();
+    }
+
+    public void pushGameState(String filePath) {
+        phases.add(new GamePhaseController(phases, mainFrame, filePath));
     }
 }
