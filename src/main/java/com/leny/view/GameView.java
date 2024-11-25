@@ -5,14 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.awt.event.MouseMotionListener;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.List;
 import java.util.Queue;
 
@@ -51,13 +48,6 @@ public class GameView {
         this.gameDataBar = new GameDataBar(phaseController);
     }
 
-    public static Image getResizedImage(Image img, double zoomLevel) {
-        double ratio = (double) windowSize.height / windowSize.width;
-        int finalWidth = (int) (windowSize.width * ratio * zoomLevel);
-        int finalHeight = (int) (windowSize.height * zoomLevel);
-        return img.getScaledInstance(finalWidth, finalHeight, Image.SCALE_FAST);
-    }
-
     private class ChampDataDisplayer extends MouseAdapter {
 
         public void mousePressed(MouseEvent e) {
@@ -93,20 +83,6 @@ public class GameView {
         }
     }
 
-    public class FrameClickListener implements MouseWheelListener {
-
-        public MapController mc;
-
-        public FrameClickListener(MapController mc) {
-            this.mc = mc;
-        }
-
-        @Override
-        public void mouseWheelMoved(MouseWheelEvent e) {
-            mc.frameClicked(e);
-        }
-    }
-
     public void show() {
         SwingUtilities.invokeLater(() -> {
             JPanel mainPanel = new JPanel(new BorderLayout());
@@ -120,11 +96,9 @@ public class GameView {
             mapWrapper.setBackground(BG_COLOR);
 
             map.setImage(Loader.getMapImage());
-            map.setup();
             mapView = new MapView(map.getMapImage());
             MapController mapController = new MapController(map, mapView);
             mapController.setup();
-            mainFrame.addMouseWheelListener(new FrameClickListener(mapController));
             Queue<Point> positions = mapView.getChampPoints();
             for (ChampImageBox champIcon : champIcons) {
                 champIcon.addMouseMotionListener(new ChampMoveMouseListener());

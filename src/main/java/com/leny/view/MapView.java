@@ -20,12 +20,13 @@ public class MapView extends JLayeredPane {
     JLabel mapLabel;
 
     public MapView(Image img) {
-        mapLabel = new JLabel(new ImageIcon(img));
         double padding = 0.1 * windowSize.getHeight();
         double height = windowSize.getHeight() - padding;
         double ratio = height / windowSize.width;
         int finalWidth = (int) (windowSize.width * ratio);
         int finalHeight = (int) height;
+        img = img.getScaledInstance(finalWidth, finalHeight, Image.SCALE_SMOOTH);
+        mapLabel = new JLabel(new ImageIcon(img));
         this.setVisible(true);
         this.setLayout(null);
         mapLabel.setBounds(0, 0, finalWidth, finalHeight);
