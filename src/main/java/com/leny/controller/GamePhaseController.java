@@ -1,11 +1,13 @@
 package com.leny.controller;
 
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 
 import com.google.gson.Gson;
@@ -36,10 +38,7 @@ public class GamePhaseController extends PhaseController {
 
     public GamePhaseController(List<PhaseController> phases, JFrame mainFrame, String filepath) {
         super(phases);
-        DataOutput input = loadFromFile(filepath);
-        view = new GameView(this, mainFrame, input.getChamps());
-        view.setLines(input.getLines());
-        view.loadEntities(input.getEntities());
+        loadGameData(filepath);
         this.mainFrame = mainFrame;
         this.state = GameState.DRAW;
     }
@@ -63,6 +62,13 @@ public class GamePhaseController extends PhaseController {
         phases.add(new MenuPhaseController(phases, mainFrame));
     }
 
+    public void loadGameData(String path) {
+        DataOutput input = loadFromFile(path);
+        view = new GameView(this, mainFrame, input.getChamps());
+        view.setLines(input.getLines());
+        view.loadEntities(input.getEntities());
+    }
+
     public void saveState(String path) {
         if (!path.endsWith(".json")) {
             path += ".json";
@@ -84,6 +90,18 @@ public class GamePhaseController extends PhaseController {
             return gson.fromJson(reader, DataOutput.class);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static String fileLoader() {
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setCurrentDirectory(new File("."));
+        fileChooser.setDialogType(JFileChooser.FILES_ONLY);
+
+        int result = fileChooser.showSaveDialog(null);
+        if (result == fileChooser.APPROVE_OPTION) {
+            return fileChooser.getSelectedFile().getPath();
         }
         return null;
     }

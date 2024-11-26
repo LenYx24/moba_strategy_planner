@@ -10,7 +10,7 @@ public class Entity {
     double xp;
     double yp;
     int goldValue;
-    Point pos;
+    Point pos = null;
 
     public Entity() {
     }
@@ -46,7 +46,7 @@ public class Entity {
         return pos;
     }
 
-    public void setPos(Point pos) {
+    public void setLocation(Point pos) {
         this.pos = pos;
     }
 

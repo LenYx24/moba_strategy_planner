@@ -1,7 +1,5 @@
 package com.leny.model;
 
-import java.awt.Point;
-
 public class Champion extends Entity {
 
     public enum Team {
@@ -26,7 +24,6 @@ public class Champion extends Entity {
         name = n;
         goldValue = 300;
         goldEarned = 0;
-        setPos(new Point(0, 0));
     }
 
     public int getGoldValue() {

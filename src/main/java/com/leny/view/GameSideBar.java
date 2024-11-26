@@ -48,13 +48,22 @@ public class GameSideBar extends JPanel {
                 phaseController.saveState(path);
             }
         }, buttons));
-        buttons.put("Back", new SidebarButton("Back", (ActionEvent event) -> {
+        buttons.put("load", new SidebarButton("load", (ActionEvent event) -> {
+            String path = GamePhaseController.fileLoader();
+            if (path != null) {
+                phaseController.loadGameData(path);
+                phaseController.complete();
+            }
+        }, buttons));
+        buttons.put("back", new SidebarButton("back", (ActionEvent event) -> {
             phaseController.back();
             phaseController.complete();
         }, buttons));
-        List<String> order = Arrays.asList("draw", "minion", "ward", "delete", "save", "back");
+        List<String> order = Arrays.asList("draw", "minion", "ward", "delete", "save", "load", "back");
         for (String current : order) {
-            this.add(buttons.get(current));
+            if (buttons.containsKey(current)) {
+                this.add(buttons.get(current));
+            }
         }
     }
 }

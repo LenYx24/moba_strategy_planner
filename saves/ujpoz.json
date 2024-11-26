@@ -1,0 +1,137 @@
+{
+  "champs": [
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "kayle",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 108,
+        "y": 148
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "nautilus",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 216,
+        "y": 302
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "rengar",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 329,
+        "y": 328
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "ziggs",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 532,
+        "y": 570
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "kayn",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 465,
+        "y": 479
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "lulu",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 172,
+        "y": 75
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "masteryi",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 561,
+        "y": 329
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "sejuani",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 464,
+        "y": 279
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "xerath",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 602,
+        "y": 461
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "zoe",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 649,
+        "y": 527
+      }
+    }
+  ],
+  "entities": [],
+  "lines": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+}

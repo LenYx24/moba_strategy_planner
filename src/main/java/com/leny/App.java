@@ -17,6 +17,7 @@ public class App {
 
     public static void main(String[] args) {
         try {
+            FlatLightLaf.setup();
             UIManager.setLookAndFeel(new FlatLightLaf());
         } catch (UnsupportedLookAndFeelException ex) {
             System.out.println("Unsupported look and feel");

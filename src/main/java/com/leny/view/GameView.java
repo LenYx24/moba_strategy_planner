@@ -74,6 +74,8 @@ public class GameView {
         map.setImage(Loader.getMapImage());
         mapView = new MapView(map.getMapImage());
         setupChampIcons();
+        redrawLines();
+        loadEntities(input.getEntities());
     }
 
     public void setupChampIcons() {
@@ -81,13 +83,20 @@ public class GameView {
         for (ChampImageBox champIcon : champIcons) {
             champIcon.addMouseMotionListener(new ChampMoveMouseListener());
             champIcon.addMouseListener(new ChampDataDisplayer());
-            champIcon.resize(60);
+            int r = 60;
+            champIcon.resize(r);
             Color color = new Color(255, 0, 0);
             if (champIcon.getChamp().getTeam() == Team.BLUE) {
                 color = new Color(0, 0, 255);
             }
             Point p = positions.poll();
-            champIcon.setBounds(p.x, p.y, 60, 60);
+            Point loc = champIcon.getChamp().getLocation();
+            if (loc != null) {
+                p = loc;
+            } else {
+                champIcon.getChamp().setLocation(p);
+            }
+            champIcon.setBounds(p.x, p.y, r, r);
             champIcon.setBorder(BorderFactory.createLineBorder(color));
             mapView.add(champIcon, JLayeredPane.DRAG_LAYER);
         }
@@ -131,9 +140,8 @@ public class GameView {
             SwingUtilities.convertPointFromScreen(p, mapView);
             p.x -= box.getWidth() / 2;
             p.y -= box.getHeight() / 2;
-            box.getChamp().setPos(new Point(p.x, p.y));
+            box.getChamp().setLocation(new Point(p.x, p.y));
             box.setLocation(p);
-            redrawLines();
         }
     }
 
@@ -146,9 +154,8 @@ public class GameView {
             SwingUtilities.convertPointFromScreen(p, mapView);
             p.x -= box.getWidth() / 2;
             p.y -= box.getHeight() / 2;
-            box.getEntity().setPos(new Point(p.x, p.y));
+            box.getEntity().setLocation(new Point(p.x, p.y));
             box.setLocation(p);
-            redrawLines();
         }
     }
 
@@ -203,6 +210,7 @@ public class GameView {
             if (currentLine != null) {
                 lines.add(currentLine);
             }
+            redrawLines();
         }
     }
 

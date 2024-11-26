@@ -36,7 +36,7 @@ public class Loader {
         try {
             jsonString = getJsonString("metadata/champs.json");
         } catch (FileNotFoundException ex) {
-            System.out.println("ERROR: FILE NOT FOUND");
+            System.out.println("ERROR: FILE NOT FOUND: champs");
             return new ArrayList<>();
         }
         JSONArray jsonArray = new JSONArray(jsonString);

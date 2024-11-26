@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import com.leny.model.DataOutput;
 import com.leny.view.MenuView;
 
 public class MenuPhaseController extends PhaseController {
