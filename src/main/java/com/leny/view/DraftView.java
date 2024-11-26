@@ -207,25 +207,6 @@ public class DraftView {
         }
     }
 
-    public void DEBUGSELECT(ChampImageBox champImageBox) {
-        if (selectedChamp != null) {
-            selectedChamp.setBorder(defaultBorder);
-        }
-
-        selectedChamp = champImageBox;
-        selectedChamp.setBorder(BorderFactory.createLineBorder(new Color(181, 162, 121)));
-    }
-
-    public void DEBUGLOCKIN() {
-        if (selectedChamp == null || !champListPanel.contains(selectedChamp)) {
-            return;
-        }
-        phaseController.next(selectedChamp);
-        champListPanel.remove(selectedChamp);
-        mainFrame.revalidate();
-        phaseController.checkDone();
-    }
-
     public void show() {
         SwingUtilities.invokeLater(() -> {
             JPanel mainPanel = new JPanel(new BorderLayout());
@@ -300,11 +281,6 @@ public class DraftView {
             down.add(banPanelRed);
             draftPanel.add(down, BorderLayout.PAGE_END);
 
-            // DEBUG
-            for (int i = 0; i < 20; i++) {
-                DEBUGSELECT(allChampIcons.get(0));
-                DEBUGLOCKIN();
-            }
             mainFrame.setContentPane(mainPanel);
             mainFrame.setVisible(true);
             mainFrame.setPreferredSize(windowSize);
