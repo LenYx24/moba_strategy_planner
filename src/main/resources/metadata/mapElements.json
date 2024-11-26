@@ -107,106 +107,106 @@
     {
         "name": "Red Nexus",
         "filepath": "rednexus.png",
-        "xp": 0.80,
-        "yp": 0.05,
+        "xp": 0.86,
+        "yp": 0.09,
         "gold": 500
-    },
-    {
-        "name": "Red Top inhib",
-        "filepath": "redinhib.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 400
-    },
-    {
-        "name": "Red Mid inhib",
-        "filepath": "redinhib.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 400
-    },
-    {
-        "name": "Red Bot inhib",
-        "filepath": "redinhib.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 400
-    },
-    {
-        "name": "Red Top Turret 1",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Mid Turret 1",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Bot Turret 1",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Top Turret 2",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Mid Turret 2",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Bot Turret 2",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Top Turret 3",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Mid Turret 3",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
-    },
-    {
-        "name": "Red Bot Turret 3",
-        "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
-        "gold": 200
     },
     {
         "name": "Red Nexus Turret 1",
         "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
+        "xp": 0.83,
+        "yp": 0.10,
         "gold": 200
     },
     {
         "name": "Red Nexus Turret 2",
         "filepath": "redturret.png",
-        "xp": 0.95,
-        "yp": 0.05,
+        "xp": 0.85,
+        "yp": 0.14,
+        "gold": 200
+    },
+    {
+        "name": "Red Top inhib",
+        "filepath": "redinhib.png",
+        "xp": 0.73,
+        "yp": 0.06,
+        "gold": 400
+    },
+    {
+        "name": "Red Mid inhib",
+        "filepath": "redinhib.png",
+        "xp": 0.76,
+        "yp": 0.20,
+        "gold": 400
+    },
+    {
+        "name": "Red Bot inhib",
+        "filepath": "redinhib.png",
+        "xp": 0.89,
+        "yp": 0.22,
+        "gold": 400
+    },
+    {
+        "name": "Red Top Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.68,
+        "yp": 0.06,
+        "gold": 200
+    },
+    {
+        "name": "Red Mid Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.73,
+        "yp": 0.23,
+        "gold": 200
+    },
+    {
+        "name": "Red Bot Turret 1",
+        "filepath": "redturret.png",
+        "xp": 0.89,
+        "yp": 0.28,
+        "gold": 200
+    },
+    {
+        "name": "Red Top Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.51,
+        "yp": 0.09,
+        "gold": 200
+    },
+    {
+        "name": "Red Mid Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.63,
+        "yp": 0.30,
+        "gold": 200
+    },
+    {
+        "name": "Red Bot Turret 2",
+        "filepath": "redturret.png",
+        "xp": 0.87,
+        "yp": 0.43,
+        "gold": 200
+    },
+    {
+        "name": "Red Top Turret 3",
+        "filepath": "redturret.png",
+        "xp": 0.28,
+        "yp": 0.06,
+        "gold": 200
+    },
+    {
+        "name": "Red Mid Turret 3",
+        "filepath": "redturret.png",
+        "xp": 0.58,
+        "yp": 0.40,
+        "gold": 200
+    },
+    {
+        "name": "Red Bot Turret 3",
+        "filepath": "redturret.png",
+        "xp": 0.91,
+        "yp": 0.68,
         "gold": 200
     }
 ]

@@ -15,6 +15,33 @@ public class Champion extends Entity {
         SUPP
     }
     private int goldEarned;
+    private int strength;
+    private int level;
+
+    public int getGoldEarned() {
+        return goldEarned;
+    }
+
+    public void setGoldEarned(int goldEarned) {
+        this.goldEarned = goldEarned;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
+    }
+
+    public int getStrength() {
+        return strength;
+    }
+
+    public void setStrength(int strength) {
+        this.strength = strength;
+    }
+
     Team team;
 
     public Champion() {
@@ -24,14 +51,6 @@ public class Champion extends Entity {
         name = n;
         goldValue = 300;
         goldEarned = 0;
-    }
-
-    public int getGoldValue() {
-        return goldValue;
-    }
-
-    public void setGoldValue(int g) {
-        goldValue = g;
     }
 
     public void setTeam(Team team) {

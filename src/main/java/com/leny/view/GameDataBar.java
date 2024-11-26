@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.function.Consumer;
 
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -14,12 +15,14 @@ import javax.swing.event.DocumentListener;
 import com.leny.controller.GamePhaseController;
 import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Champion;
+import com.leny.model.Entity;
 
 public class GameDataBar extends JPanel {
 
     GamePhaseController phaseController;
     Champion selectedChamp;
-    JTextField goldArea;
+    Entity selectedEntity;
+    GridBagConstraints gbc;
 
     public GameDataBar(GamePhaseController phaseController) {
         Dimension size = new Dimension(300, windowSize.height);
@@ -27,58 +30,104 @@ public class GameDataBar extends JPanel {
         setBackground(new Color(46, 50, 58));
         this.setLayout(new GridLayout(0, 2));
         this.phaseController = phaseController;
+        GridBagConstraints gbc = getGbc();
     }
 
-    class TextChangedAdapter implements DocumentListener {
-
-        @Override
-        public void changedUpdate(DocumentEvent e) {
-            update(e);
-        }
-
-        @Override
-        public void insertUpdate(DocumentEvent e) {
-            update(e);
-        }
-
-        @Override
-        public void removeUpdate(DocumentEvent e) {
-            update(e);
-        }
-
-        private void update(DocumentEvent e) {
-            String text = goldArea.getText();
-            if (text.isEmpty()) {
-                return;
+    private void bindField(JTextField textField, Consumer<Integer> onChange) {
+        textField.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                notifyChange();
             }
-            System.out.println("typed");
-            try {
-                selectedChamp.setGoldValue(Integer.parseInt(text));
-            } catch (NumberFormatException err) {
-                System.out.println("wrong format");
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                notifyChange();
             }
-        }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                notifyChange();
+            }
+
+            private void notifyChange() {
+                String text = textField.getText();
+                if (text.isEmpty()) {
+                    return;
+                }
+                try {
+                    onChange.accept(Integer.parseInt(textField.getText()));
+                } catch (NumberFormatException err) {
+                    System.out.println("wrong format");
+                }
+            }
+        });
     }
 
     public void update(Champion champ) {
         this.removeAll();
         selectedChamp = champ;
 
-        GridBagConstraints gbc = new GridBagConstraints();
+        addLabelAndValue("name: ", champ.getName());
 
-        gbc.fill = GridBagConstraints.HORIZONTAL;
-        gbc.weightx = 1.0;
-        gbc.weighty = 0;
-        gbc.gridx = 0;
-        gbc.gridy = GridBagConstraints.RELATIVE;
-        gbc.insets = new Insets(5, 5, 5, 5);
+        addLabel("gold value: ");
+        JTextField goldArea = new JTextField(Integer.toString(champ.getGoldValue()));
+        bindField(goldArea, (Integer text) -> {
+            selectedChamp.setGoldValue(text);
+        });
+        this.add(goldArea, gbc);
 
-        this.add(LabelFactory.createDataLabel("name: "), gbc);
-        this.add(LabelFactory.createDataLabel(champ.getName()), gbc);
+        addLabel("strength: ");
+        JTextField strengthArea = new JTextField(Integer.toString(champ.getStrength()));
+        bindField(strengthArea, (Integer text) -> {
+            selectedChamp.setStrength(text);
+        });
+        this.add(strengthArea, gbc);
 
-        this.add(LabelFactory.createDataLabel("Gold value: "), gbc);
-        goldArea = new JTextField(Integer.toString(champ.getGoldValue()));
-        goldArea.getDocument().addDocumentListener(new TextChangedAdapter());
+        addLabel("level: ");
+        JTextField levelArea = new JTextField(Integer.toString(champ.getLevel()));
+        bindField(levelArea, (Integer text) -> {
+            selectedChamp.setLevel(text);
+        });
+        this.add(levelArea, gbc);
+
+        this.revalidate();
+    }
+
+    private void addLabel(String name) {
+        this.add(LabelFactory.createDataLabel(name), gbc);
+    }
+
+    private void addLabelAndValue(String name, String value) {
+        this.add(LabelFactory.createDataLabel(name), gbc);
+        this.add(LabelFactory.createDataLabel(value), gbc);
+    }
+
+    private GridBagConstraints getGbc() {
+        GridBagConstraints myGbc = new GridBagConstraints();
+
+        myGbc.fill = GridBagConstraints.HORIZONTAL;
+        myGbc.weightx = 1.0;
+        myGbc.weighty = 0;
+        myGbc.gridx = 0;
+        myGbc.gridy = GridBagConstraints.RELATIVE;
+        myGbc.insets = new Insets(5, 5, 5, 5);
+        return myGbc;
+    }
+
+    public void update(Entity entity) {
+        this.removeAll();
+        selectedEntity = entity;
+
+        GridBagConstraints gbc = getGbc();
+
+        addLabelAndValue("name: ", entity.getName());
+
+        addLabel("gold value: ");
+        JTextField goldArea = new JTextField(Integer.toString(entity.getGoldValue()));
+        bindField(goldArea, (Integer text) -> {
+            selectedEntity.setGoldValue(text);
+        });
         this.add(goldArea, gbc);
         this.revalidate();
     }

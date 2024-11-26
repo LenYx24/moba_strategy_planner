@@ -1,0 +1,174 @@
+{
+  "champs": [
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "kayle",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 76,
+        "y": 140
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "nautilus",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 180,
+        "y": 310
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "rengar",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 290,
+        "y": 360
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "ziggs",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 550,
+        "y": 610
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "BLUE",
+      "name": "kayn",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 480,
+        "y": 540
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "lulu",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 163,
+        "y": 65
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "masteryi",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 540,
+        "y": 360
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "sejuani",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 430,
+        "y": 290
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "xerath",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 580,
+        "y": 510
+      }
+    },
+    {
+      "goldEarned": 0,
+      "team": "RED",
+      "name": "zoe",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 300,
+      "pos": {
+        "x": 650,
+        "y": 580
+      }
+    }
+  ],
+  "entities": [
+    {
+      "name": "Ward",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 0,
+      "pos": {
+        "x": 375,
+        "y": 152
+      }
+    },
+    {
+      "name": "Ward",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 0,
+      "pos": {
+        "x": 252,
+        "y": 240
+      }
+    },
+    {
+      "name": "Minion",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 0,
+      "pos": {
+        "x": 319,
+        "y": 163
+      }
+    },
+    {
+      "name": "Minion",
+      "xp": 0.0,
+      "yp": 0.0,
+      "goldValue": 0,
+      "pos": {
+        "x": 356,
+        "y": 277
+      }
+    }
+  ],
+  "lines": [
+    [],
+    [],
+    [],
+    [],
+    [],
+    []
+  ]
+}

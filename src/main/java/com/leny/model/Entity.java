@@ -53,4 +53,12 @@ public class Entity {
     public String getName() {
         return name;
     }
+
+    public int getGoldValue() {
+        return goldValue;
+    }
+
+    public void setGoldValue(int g) {
+        goldValue = g;
+    }
 }

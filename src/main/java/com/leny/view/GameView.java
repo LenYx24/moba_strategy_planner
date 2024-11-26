@@ -119,7 +119,25 @@ public class GameView {
     }
 
     public void loadEntities(List<Entity> entities) {
-
+        for (Entity entity : entities) {
+            int gold = entity.getGoldValue();
+            Point loc = entity.getLocation();
+            if (entity.getName().equals("Minion")) {
+                entity = EntityFactory.createMinion(loc);
+            } else {
+                entity = EntityFactory.createWard(loc);
+            }
+            entity.setGoldValue(gold);
+            entity.resizeImg(50);
+            EntityImageBox box = new EntityImageBox(entity);
+            box.addMouseListener(new EntityDataDisplayer());
+            box.addMouseListener(new EntityDeletorListener());
+            box.setBorder(BorderFactory.createLineBorder(new Color(44, 234, 63)));
+            box.setBounds(loc.x, loc.y, 50, 40);
+            saveableEntities.add(entity);
+            box.addMouseMotionListener(new EntityMoveListener());
+            mapView.add(box, JLayeredPane.DRAG_LAYER);
+        }
     }
 
     private class ChampDataDisplayer extends MouseAdapter {
@@ -128,6 +146,15 @@ public class GameView {
         public void mousePressed(MouseEvent e) {
             ChampImageBox box = (ChampImageBox) e.getSource();
             gameDataBar.update(box.getChamp());
+        }
+    }
+
+    private class EntityDataDisplayer extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            EntityImageBox box = (EntityImageBox) e.getSource();
+            gameDataBar.update(box.getEntity());
         }
     }
 
@@ -171,7 +198,7 @@ public class GameView {
             Graphics2D g = (Graphics2D) mapView.getGraphics();
             if (currentLine != null && !currentLine.isEmpty()) {
                 Point pLast = currentLine.get(currentLine.size() - 1);
-                g.setStroke(new BasicStroke(5));
+                g.setStroke(new BasicStroke(2));
                 g.drawLine((int) p.getX(), (int) p.getY(), pLast.x, pLast.y);
             }
             if (currentLine != null) {
@@ -182,7 +209,7 @@ public class GameView {
 
     private void redrawLines() {
         Graphics2D g = (Graphics2D) mapView.getGraphics();
-        g.setStroke(new BasicStroke(5));
+        g.setStroke(new BasicStroke(2));
         for (List<Point> line : lines) {
             for (int i = 1; i < line.size(); i++) {
                 Point prev = line.get(i - 1);
@@ -244,9 +271,25 @@ public class GameView {
                 }
             }
             saveableEntities.add(entity);
+            box.addMouseListener(new EntityDeletorListener());
             box.addMouseMotionListener(new EntityMoveListener());
+            box.addMouseListener(new EntityDataDisplayer());
             mapView.add(box, JLayeredPane.DRAG_LAYER);
         }
+    }
+
+    private class EntityDeletorListener extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            EntityImageBox box = (EntityImageBox) e.getSource();
+            Entity remove = box.getEntity();
+            saveableEntities.remove(remove);
+            mapView.remove(box);
+            mapView.revalidate();
+            mapView.update(mapView.getGraphics());
+        }
+
     }
 
     public void show() {

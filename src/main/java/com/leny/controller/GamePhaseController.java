@@ -38,9 +38,16 @@ public class GamePhaseController extends PhaseController {
 
     public GamePhaseController(List<PhaseController> phases, JFrame mainFrame, String filepath) {
         super(phases);
-        loadGameData(filepath);
         this.mainFrame = mainFrame;
         this.state = GameState.DRAW;
+        loadGameData(filepath);
+    }
+
+    public void loadGameData(String path) {
+        DataOutput input = loadFromFile(path);
+        view = new GameView(this, mainFrame, input.getChamps());
+        view.setLines(input.getLines());
+        view.loadEntities(input.getEntities());
     }
 
     @Override
@@ -60,13 +67,6 @@ public class GamePhaseController extends PhaseController {
     public void back() {
         phases.clear();
         phases.add(new MenuPhaseController(phases, mainFrame));
-    }
-
-    public void loadGameData(String path) {
-        DataOutput input = loadFromFile(path);
-        view = new GameView(this, mainFrame, input.getChamps());
-        view.setLines(input.getLines());
-        view.loadEntities(input.getEntities());
     }
 
     public void saveState(String path) {
