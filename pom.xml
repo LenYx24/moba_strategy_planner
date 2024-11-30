@@ -61,6 +61,37 @@
         </resources>
         <plugins>
             <plugin>
+            <artifactId>plantuml-generator-maven-plugin</artifactId>
+            <groupId>de.elnarion.maven</groupId>
+            <version>1.1.2</version>
+            <executions>
+                <execution>
+                    <id>generate-simple-diagram</id>
+                    <goals>
+                        <goal>generate</goal>
+                    </goals>
+                    <phase>generate-test-sources</phase>
+                    <configuration>
+                        <outputFilename>diagram.txt</outputFilename>
+                        <scanPackages>
+                            <scanPackage>
+                            com.leny.model
+                            </scanPackage>
+                            <scanPackage>
+                            com.leny.controller
+                            </scanPackage>
+                            <scanPackage>
+                            com.leny.view
+                            </scanPackage>
+                            <scanPackage>
+                            com.leny
+                            </scanPackage>
+                        </scanPackages>
+                    </configuration>
+                </execution>
+            </executions>
+            </plugin>
+            <plugin>
             <!-- Build an executable JAR -->
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
