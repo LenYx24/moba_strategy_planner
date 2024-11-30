@@ -88,8 +88,8 @@ public class MapView extends JLayeredPane {
 
         @Override
         public void mousePressed(MouseEvent e) {
-            ChampImageBox box = (ChampImageBox) e.getSource();
-            gameDataBar.update(box.getChamp());
+            EntityImageBox box = (EntityImageBox) e.getSource();
+            gameDataBar.update(box.getEntity());
         }
     }
 }
