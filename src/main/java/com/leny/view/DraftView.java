@@ -61,23 +61,33 @@ public class DraftView {
     public void updateChampsPanel(Group group) {
         switch (group) {
             case BLUEPICK: {
-                pickPanelBlue.update();
+                if(pickPanelBlue != null){
+                    pickPanelBlue.update();
+                }
                 break;
             }
             case REDPICK: {
-                pickPanelRed.update();
+                if(pickPanelRed != null){
+                    pickPanelRed.update();
+                }
                 break;
             }
             case BLUEBAN: {
-                banPanelBlue.update();
+                if(banPanelBlue != null){
+                    banPanelBlue.update();
+                }
                 break;
             }
             case REDBAN: {
-                banPanelRed.update();
+                if(banPanelRed != null){
+                    banPanelRed.update();
+                }
                 break;
             }
         }
-        champListPanel.update();
+        if(champListPanel != null){
+            champListPanel.update();
+        }
     }
 
     class ChampsPanel extends JPanel {

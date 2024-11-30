@@ -20,12 +20,18 @@ public abstract class PhaseController {
     }
 
     public void complete() {
+        if(phases == null){
+            return;
+        }
         synchronized (phases) {
             phases.notifyAll();
         }
     }
 
     public void back() {
+        if(phases == null){
+            return;
+        }
         phases.remove(phases.lastIndexOf(this));
     }
 

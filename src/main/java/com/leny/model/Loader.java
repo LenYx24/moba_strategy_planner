@@ -3,6 +3,7 @@ package com.leny.model;
 import java.awt.Image;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,7 +22,9 @@ public class Loader {
 
     private static String getJsonString(String filepath) throws IOException {
         Scanner scanner;
-        InputStream inp = ClassLoader.getSystemResource(filepath).openStream();
+        URL url = ClassLoader.getSystemResource(filepath);
+        if(url == null)throw new IOException("File does not exist");
+        InputStream inp = url.openStream();
         scanner = new Scanner(inp);
         StringBuilder jsonString = new StringBuilder();
         while (scanner.hasNextLine()) {
@@ -65,7 +68,9 @@ public class Loader {
     public static Image getMapIconImg(String name) {
         Image img = null;
         try {
-            img = ImageIO.read(ClassLoader.getSystemResource("mapIcons/" + name + ".png"));
+            URL url = ClassLoader.getSystemResource("mapIcons/" + name + ".png");
+            if(url == null)return null;
+            img = ImageIO.read(url);
         } catch (IOException ex) {
             System.out.println("ERROR: Icon missing");
         }

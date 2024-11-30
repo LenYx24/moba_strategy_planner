@@ -77,6 +77,9 @@ public class GamePhaseController extends PhaseController {
 
     @Override
     public void back() {
+        if(phases == null){
+            return;
+        }
         phases.clear();
         phases.add(new MenuPhaseController(phases, mainFrame));
     }

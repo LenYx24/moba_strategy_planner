@@ -44,7 +44,9 @@ public class Draft {
             if (champs.size() < 5) {
                 champs.add(champ);
             }
-            phaseController.updateChampsPanel(group);
+            if(phaseController != null){
+                phaseController.updateChampsPanel(group);
+            }
         }
 
         public int getLength() {

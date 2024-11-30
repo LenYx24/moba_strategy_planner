@@ -9,14 +9,6 @@ public class Champion extends Entity {
         BLUE,
         RED
     }
-
-    public enum Role {
-        TOP,
-        JG,
-        MID,
-        ADC,
-        SUPP
-    }
     private int goldEarned;
     private int strength;
     private int level;

@@ -57,7 +57,9 @@ public class DraftPhaseController extends PhaseController {
     }
 
     public void updateChampsPanel(Group group) {
-        view.updateChampsPanel(group);
+        if(view != null){
+            view.updateChampsPanel(group);
+        }
     }
 
     public ChampImageBox findImageBoxByChamp(Champion champ) {
