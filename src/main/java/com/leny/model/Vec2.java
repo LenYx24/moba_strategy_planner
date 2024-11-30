@@ -1,5 +1,7 @@
 package com.leny.model;
-
+/**
+ * Simple vector class
+ */
 public class Vec2 {
 
     public int X;

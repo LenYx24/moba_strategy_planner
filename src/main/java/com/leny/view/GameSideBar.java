@@ -16,6 +16,10 @@ import com.leny.controller.GamePhaseController.GameState;
 import static com.leny.model.AppSettings.windowSize;
 import static com.leny.view.Colors.BG_COLOR_DARK;
 
+/**
+ * The side menu bar for the game phase
+ * This contains the buttons
+ */
 public class GameSideBar extends JPanel {
 
     public GameSideBar(GamePhaseController phaseController) {

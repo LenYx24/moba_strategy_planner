@@ -11,6 +11,9 @@ import com.leny.model.Draft.Group;
 import com.leny.view.ChampImageBox;
 import com.leny.view.DraftView;
 
+/**
+ * Handles the draft state of the program
+ */
 public class DraftPhaseController extends PhaseController {
 
     DraftView view;

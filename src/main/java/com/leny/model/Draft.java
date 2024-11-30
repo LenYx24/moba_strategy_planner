@@ -10,7 +10,9 @@ import java.util.Map.Entry;
 import com.leny.controller.DraftPhaseController;
 import com.leny.model.Champion.Team;
 import com.leny.view.ChampImageBox;
-
+/**
+ * Holds the draft model
+ */
 public class Draft {
 
     public enum Group {

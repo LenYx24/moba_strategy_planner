@@ -15,7 +15,10 @@ import javax.swing.SwingUtilities;
 
 import com.leny.controller.SettingsPhaseController;
 import static com.leny.model.AppSettings.windowSize;
-
+/**
+ * The UI for the settings state
+ * currently this state is not used, it will be used in the future
+ */
 public class SettingsView {
 
     SettingsPhaseController phaseController;

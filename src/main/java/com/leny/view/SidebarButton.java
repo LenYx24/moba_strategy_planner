@@ -8,7 +8,9 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 import javax.swing.JButton;
-
+/**
+ * This is the button used on the sidebar
+ */
 public class SidebarButton extends JButton {
 
     private class SelectionListener implements ActionListener {

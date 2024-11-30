@@ -16,7 +16,9 @@ import javax.swing.JLayeredPane;
 import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Entity;
 import static com.leny.view.Colors.BG_COLOR;
-
+/**
+ * The UI for the minimap component
+ */
 public class MapView extends JLayeredPane {
 
     JLabel mapLabel;

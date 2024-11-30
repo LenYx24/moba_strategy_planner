@@ -16,12 +16,18 @@ import com.leny.model.Champion;
 import com.leny.model.DataOutput;
 import com.leny.view.GameView;
 
+/**
+ * Handles the game state of the program, this is the state that is most important
+ */
 public class GamePhaseController extends PhaseController {
 
     GameView view;
     GameState state;
     JFrame mainFrame;
 
+    /**
+     * This resembles what kind of feature the user is currently using
+     */
     public enum GameState {
         DRAW,
         PLACE_MINION,
@@ -36,6 +42,12 @@ public class GamePhaseController extends PhaseController {
         this.state = GameState.DRAW;
     }
 
+    /**
+     * This constructor is specifically used when loading from a saved state file
+     * @param phases
+     * @param mainFrame
+     * @param filepath
+     */
     public GamePhaseController(List<PhaseController> phases, JFrame mainFrame, String filepath) {
         super(phases);
         this.mainFrame = mainFrame;
@@ -69,6 +81,10 @@ public class GamePhaseController extends PhaseController {
         phases.add(new MenuPhaseController(phases, mainFrame));
     }
 
+    /**
+     * Saves the state to the given path
+     * @param path can be absolute or relative, should be valid for the FileWriter class
+     */
     public void saveState(String path) {
         if (!path.endsWith(".json")) {
             path += ".json";
@@ -84,9 +100,14 @@ public class GamePhaseController extends PhaseController {
         }
     }
 
-    public static DataOutput loadFromFile(String filePath) {
+    /**
+     * Loads the gamestate from the given filepath
+     * @param path can be absolute or relative, should be valid for the FileReader class
+     * @return the read output, returns null if theres an error
+     */
+    public static DataOutput loadFromFile(String path) {
         Gson gson = new Gson();
-        try (FileReader reader = new FileReader(filePath)) {
+        try (FileReader reader = new FileReader(path)) {
             return gson.fromJson(reader, DataOutput.class);
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,6 +115,10 @@ public class GamePhaseController extends PhaseController {
         return null;
     }
 
+    /**
+     * Displays the file chooser dialog option to pick where to save the gamestate
+     * @return the path if everything went right, null otherwise
+     */
     public static String fileLoader() {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.setCurrentDirectory(new File("."));

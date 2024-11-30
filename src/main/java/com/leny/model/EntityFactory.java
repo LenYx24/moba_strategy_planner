@@ -2,7 +2,10 @@ package com.leny.model;
 
 import java.awt.Image;
 import java.awt.Point;
-
+/**
+ * Creates those entities which are only different in some of their attributes
+ * but behave in the same way as an entity for now
+ */
 public class EntityFactory {
 
     public static Entity createMinion(Point p) {

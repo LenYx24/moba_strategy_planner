@@ -1,8 +1,6 @@
 package com.leny.model;
 
 import java.awt.Image;
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -16,7 +14,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import com.leny.view.ChampImageBox;
-
+/**
+ * Class responsible for loading data from files
+ */
 public class Loader {
 
     private static String getJsonString(String filepath) throws IOException {

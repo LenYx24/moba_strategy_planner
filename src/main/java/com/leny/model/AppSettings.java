@@ -4,6 +4,10 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 
+/**
+ * Holds the statically available application settings
+ * which are globally true across the application
+ */
 public class AppSettings {
 
     public static final Dimension windowSize = new Dimension(1600, 800);

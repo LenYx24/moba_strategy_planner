@@ -5,7 +5,9 @@ import java.util.List;
 import javax.swing.JFrame;
 
 import com.leny.view.MenuView;
-
+/**
+ * Handles the Menu state of the program
+ */
 public class MenuPhaseController extends PhaseController {
 
     MenuView view;

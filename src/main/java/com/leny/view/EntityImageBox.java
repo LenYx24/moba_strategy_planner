@@ -1,9 +1,10 @@
 package com.leny.view;
 
-import java.awt.Point;
-
 import com.leny.model.Entity;
 
+/**
+ * This holds an entity and its corresponding image box
+ */
 public class EntityImageBox extends ImageBox {
 
     Entity entity;

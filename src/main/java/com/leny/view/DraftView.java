@@ -36,6 +36,9 @@ import com.leny.model.Draft.Group;
 import com.leny.model.Loader;
 import static com.leny.view.Colors.BG_COLOR;
 
+/**
+ * The UI for the draft state
+ */
 public class DraftView {
 
     DraftPhaseController phaseController;

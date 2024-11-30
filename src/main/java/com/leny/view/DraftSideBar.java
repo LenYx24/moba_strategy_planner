@@ -9,7 +9,9 @@ import javax.swing.JPanel;
 
 import com.leny.controller.PhaseController;
 import static com.leny.model.AppSettings.windowSize;
-
+/**
+ * The menu sidebar for the draft phase
+ */
 public class DraftSideBar extends JPanel {
 
     public DraftSideBar(PhaseController phaseController) {

@@ -1,5 +1,8 @@
 package com.leny.model;
-
+/**
+ * Holds the champion entity class
+ * some fields are unused yet, there are here for future advancement
+ */
 public class Champion extends Entity {
 
     public enum Team {

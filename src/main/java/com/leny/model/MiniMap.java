@@ -2,7 +2,9 @@ package com.leny.model;
 
 import java.awt.Image;
 import java.util.List;
-
+/**
+ * Holds the data of a minimap
+ */
 public class MiniMap {
 
     Image mapImage = null;

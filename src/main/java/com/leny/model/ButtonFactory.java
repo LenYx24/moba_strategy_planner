@@ -5,7 +5,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
-
+/**
+ * Responsible for creating and styling the buttons used on the UI
+ */
 public abstract class ButtonFactory {
 
     private ButtonFactory() {

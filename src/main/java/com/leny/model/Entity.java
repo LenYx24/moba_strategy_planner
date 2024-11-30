@@ -2,7 +2,9 @@ package com.leny.model;
 
 import java.awt.Image;
 import java.awt.Point;
-
+/**
+ * Holds the base class for any entity on the map
+ */
 public class Entity {
 
     String name;

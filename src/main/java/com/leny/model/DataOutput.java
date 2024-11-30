@@ -2,7 +2,9 @@ package com.leny.model;
 
 import java.awt.Point;
 import java.util.List;
-
+/**
+ * Holds those variables which are saved to and loaded from a file
+ */
 public class DataOutput {
 
     List<Champion> champs;

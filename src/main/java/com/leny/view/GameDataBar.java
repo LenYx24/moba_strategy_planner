@@ -17,6 +17,10 @@ import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Champion;
 import com.leny.model.Entity;
 
+/**
+ * The data bar for the game state
+ * This is the panel that shows the given entities data, like name, gold etc...
+ */
 public class GameDataBar extends JPanel {
 
     GamePhaseController phaseController;

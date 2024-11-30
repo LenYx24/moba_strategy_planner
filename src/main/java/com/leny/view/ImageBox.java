@@ -7,6 +7,9 @@ import javax.swing.JLabel;
 
 import com.leny.model.Vec2;
 
+/**
+ * The UI component for creating a box that contains an image
+ */
 public class ImageBox extends JLabel {
 
     Image img;

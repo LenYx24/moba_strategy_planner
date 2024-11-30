@@ -34,7 +34,9 @@ import com.leny.model.Loader;
 import com.leny.model.MiniMap;
 import static com.leny.view.Colors.BG_COLOR;
 import static com.leny.view.Colors.BG_COLOR_DARK;
-
+/**
+ * The UI for the game state
+ */
 public class GameView {
 
     private final GamePhaseController phaseController;
