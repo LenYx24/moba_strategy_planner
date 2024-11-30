@@ -4,6 +4,7 @@ import java.awt.Image;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -18,10 +19,10 @@ import com.leny.view.ChampImageBox;
 
 public class Loader {
 
-    private static String getJsonString(String filepath) throws FileNotFoundException {
+    private static String getJsonString(String filepath) throws IOException {
         Scanner scanner;
-        String path = ClassLoader.getSystemResource(filepath).getFile();
-        scanner = new Scanner(new File(path));
+        InputStream inp = ClassLoader.getSystemResource(filepath).openStream();
+        scanner = new Scanner(inp);
         StringBuilder jsonString = new StringBuilder();
         while (scanner.hasNextLine()) {
             jsonString.append(scanner.nextLine());
@@ -35,8 +36,9 @@ public class Loader {
         String jsonString = "";
         try {
             jsonString = getJsonString("metadata/champs.json");
-        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
             System.out.println("ERROR: FILE NOT FOUND: champs");
+            System.out.println(ex.getMessage());
             return new ArrayList<>();
         }
         JSONArray jsonArray = new JSONArray(jsonString);
