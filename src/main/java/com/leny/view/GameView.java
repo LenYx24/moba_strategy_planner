@@ -22,6 +22,8 @@ import javax.swing.SwingUtilities;
 
 import com.leny.controller.GamePhaseController;
 import com.leny.controller.MapController;
+import com.leny.controller.GamePhaseController.GameState;
+
 import static com.leny.model.AppSettings.windowSize;
 import com.leny.model.Champion;
 import com.leny.model.Champion.Team;
@@ -57,7 +59,7 @@ public class GameView {
         this.gameDataBar = new GameDataBar(phaseController);
         champIcons = Loader.getAllChampsIcons(champs);
         map.setImage(Loader.getMapImage());
-        mapView = new MapView(map.getMapImage());
+        mapView = new MapView(map.getMapImage(), gameDataBar);
         setupChampIcons();
     }
 
@@ -72,7 +74,7 @@ public class GameView {
         this.gameDataBar = new GameDataBar(phaseController);
         champIcons = Loader.getAllChampsIcons(champs);
         map.setImage(Loader.getMapImage());
-        mapView = new MapView(map.getMapImage());
+        mapView = new MapView(map.getMapImage(), gameDataBar);
         setupChampIcons();
         redrawLines();
         loadEntities(input.getEntities());
@@ -282,6 +284,9 @@ public class GameView {
 
         @Override
         public void mousePressed(MouseEvent e) {
+            if(phaseController.getState() != GameState.DELETE){
+                return;
+            }
             EntityImageBox box = (EntityImageBox) e.getSource();
             Entity remove = box.getEntity();
             saveableEntities.remove(remove);

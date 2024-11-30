@@ -106,7 +106,7 @@ public class Loader {
         String jsonString = "";
         try {
             jsonString = getJsonString("metadata/mapElements.json");
-        } catch (FileNotFoundException ex) {
+        } catch (IOException ex) {
             System.out.println("ERROR: FILE NOT FOUND");
             return new ArrayList<>();
         }

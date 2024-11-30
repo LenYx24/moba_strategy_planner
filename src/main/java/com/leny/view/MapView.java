@@ -3,6 +3,8 @@ package com.leny.view;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
@@ -18,8 +20,10 @@ import static com.leny.view.Colors.BG_COLOR;
 public class MapView extends JLayeredPane {
 
     JLabel mapLabel;
+    GameDataBar gameDataBar;
 
-    public MapView(Image img) {
+    public MapView(Image img, GameDataBar gameDataBar) {
+        this.gameDataBar = gameDataBar;
         double padding = 0.1 * windowSize.getHeight();
         double height = windowSize.getHeight() - padding;
         double ratio = height / windowSize.width;
@@ -48,6 +52,7 @@ public class MapView extends JLayeredPane {
             b.setBounds(p.x, p.y, r, r);
             b.setLocation(p);
             this.add(b, JLayeredPane.PALETTE_LAYER);
+            b.addMouseListener(new ChampDataDisplayer());
         }
         this.revalidate();
         this.updateUI();
@@ -78,5 +83,13 @@ public class MapView extends JLayeredPane {
         System.out.println("UPDATE IMAGE");
         mapLabel.setIcon(icon);
         mapLabel.updateUI();
+    }
+    private class ChampDataDisplayer extends MouseAdapter {
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            ChampImageBox box = (ChampImageBox) e.getSource();
+            gameDataBar.update(box.getChamp());
+        }
     }
 }

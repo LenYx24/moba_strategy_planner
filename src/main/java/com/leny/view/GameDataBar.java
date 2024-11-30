@@ -30,9 +30,7 @@ public class GameDataBar extends JPanel {
         setBackground(new Color(46, 50, 58));
         this.setLayout(new GridLayout(0, 2));
         this.phaseController = phaseController;
-        GridBagConstraints gbc = getGbc();
     }
-
     private void bindField(JTextField textField, Consumer<Integer> onChange) {
         textField.getDocument().addDocumentListener(new DocumentListener() {
             @Override

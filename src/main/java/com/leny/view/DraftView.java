@@ -165,6 +165,7 @@ public class DraftView {
         private void addBoxes() {
             for (ChampImageBox box : allChampsIcons) {
                 box.setBorder(defaultBorder);
+                box.setBounds(0,0,100,100);
                 inside.add(box);
             }
         }
